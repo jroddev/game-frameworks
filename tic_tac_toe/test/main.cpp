@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 TEST(TicTacToe, Placeholder) {
-    EXPECT_EQ(1, 2);
+    EXPECT_EQ(1, 1);
 }
 
 int main(int argc, char **argv) {
