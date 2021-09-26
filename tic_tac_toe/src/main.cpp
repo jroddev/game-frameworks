@@ -1,7 +1,7 @@
-#include <iostream>
+#include "spdlog/spdlog.h"
 #include <dummy/dummy.h>
 
 int main() {
-    std::cout << "Starting Tic-Tac-Toe (" << dummy<std::string>(10) << ")" << std::endl;
+    spdlog::info("Starting Tic-Tac-Toe ({})", dummy<std::string>(10));
     return 0;
 }

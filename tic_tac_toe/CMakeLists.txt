@@ -17,6 +17,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(cpp_dummy)
 
+
+
+FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG        v1.9.2
+)
+FetchContent_MakeAvailable(spdlog)
+
+
+
 ##########################################
 ### APPLICATION
 ##########################################
@@ -25,7 +36,10 @@ add_executable(tic_tac_toe_app src/main.cpp)
 target_include_directories(tic_tac_toe_app
         PRIVATE
         ${cpp_dummy_SOURCE_DIR}/include)
-target_link_libraries(tic_tac_toe_app cpp_dummy)
+target_link_libraries(tic_tac_toe_app
+        cpp_dummy
+        spdlog
+        )
 
 
 ##########################################
