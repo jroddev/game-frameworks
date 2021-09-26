@@ -31,9 +31,10 @@ target_link_libraries(tic_tac_toe_app cpp_dummy)
 ##########################################
 ### TESTS
 ##########################################
-project(tic_tac_toe_test)
 add_executable(tic_tac_toe_test test/main.cpp)
 target_include_directories(tic_tac_toe_test
         PRIVATE
         ${googletest_SOURCE_DIR}/googletest/include)
 target_link_libraries(tic_tac_toe_test gtest)
+gtest_add_tests(tic_tac_toe_test "" AUTO)
+set_tests_properties(${tic_tac_toe_test} PROPERTIES TIMEOUT 10)

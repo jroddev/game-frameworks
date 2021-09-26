@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-TEST(TicTacToeTest, Placeholder) {
+TEST(TicTacToe, Placeholder) {
     EXPECT_EQ(1, 2);
 }
 
