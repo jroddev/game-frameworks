@@ -5,6 +5,8 @@ include(FetchContent)
 project(gfg2d_sdl2 VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
 
+find_package(OpenGL REQUIRED)
+
 FetchContent_Declare(
         sdl2
         GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
@@ -19,6 +21,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+FetchContent_Declare(
+        glew
+        GIT_REPOSITORY https://github.com/Perlmint/glew-cmake
+        GIT_TAG glew-cmake-2.1.0)
+FetchContent_MakeAvailable(glew)
+
+
+
 add_library(gfg2d_sdl2
         include/gfg2d_sdl2_window/sdl2_opengl_window.h
         src/sdl2_opengl_window.cpp
@@ -27,10 +37,11 @@ target_include_directories(gfg2d_sdl2 PUBLIC
         include
         ${sdl2_SOURCE_DIR}/include
         ${spdlog_SOURCE_DIR}/include)
-target_link_libraries(gfg2d_sdl2
-        PRIVATE
-        SDL2-static
-        spdlog)
+
+target_link_libraries(gfg2d_sdl2 spdlog)
+target_link_libraries(gfg2d_sdl2 OpenGL::GL)
+target_link_libraries(gfg2d_sdl2 SDL2-static)
+target_link_libraries(gfg2d_sdl2 libglew_shared)
 
 
 add_executable(gfg2d_sdl2_test test/main.cpp)
