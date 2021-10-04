@@ -1,12 +1,18 @@
 cmake_minimum_required(VERSION 3.0)
 include(FetchContent)
 
+set(CI $ENV{CI})
 
 project(gfg2d_sdl2 VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
 
-# 'REQUIRED' removed for CI Builds
-find_package(OpenGL)
+if(CI)
+    message(STATUS "Skipping OpenGL as Build is running in CI: ${CI}")
+else()
+    find_package(OpenGL REQUIRED)
+    set(OpenGL_GL_PREFERENCE GLVND)
+endif()
+
 
 FetchContent_Declare(
         sdl2
@@ -40,9 +46,12 @@ target_include_directories(gfg2d_sdl2 PUBLIC
         ${spdlog_SOURCE_DIR}/include)
 
 target_link_libraries(gfg2d_sdl2 spdlog)
-target_link_libraries(gfg2d_sdl2 OpenGL::GL)
 target_link_libraries(gfg2d_sdl2 SDL2-static)
 target_link_libraries(gfg2d_sdl2 libglew_shared)
+
+if(!CI)
+    target_link_libraries(gfg2d_sdl2 OpenGL::GL)
+endif()
 
 
 add_executable(gfg2d_sdl2_example example/main.cpp)
