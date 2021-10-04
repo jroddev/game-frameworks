@@ -4,4 +4,4 @@ project(game_frameworks VERSION 0.1.0)
 include(GoogleTest)
 enable_testing()
 
-add_subdirectory(tic_tac_toe)
+add_subdirectory(games/tic_tac_toe)
