@@ -43,7 +43,9 @@ add_library(gfg2d_sdl2
 target_include_directories(gfg2d_sdl2 PUBLIC
         include
         ${sdl2_SOURCE_DIR}/include
-        ${spdlog_SOURCE_DIR}/include)
+        ${spdlog_SOURCE_DIR}/include
+        ${glew_SOURCE_DIR}/include
+        )
 
 target_link_libraries(gfg2d_sdl2 spdlog)
 target_link_libraries(gfg2d_sdl2 SDL2-static)
