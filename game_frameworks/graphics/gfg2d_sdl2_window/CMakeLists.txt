@@ -5,7 +5,8 @@ include(FetchContent)
 project(gfg2d_sdl2 VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(OpenGL REQUIRED)
+# 'REQUIRED' removed for CI Builds
+find_package(OpenGL)
 
 FetchContent_Declare(
         sdl2
@@ -44,10 +45,10 @@ target_link_libraries(gfg2d_sdl2 SDL2-static)
 target_link_libraries(gfg2d_sdl2 libglew_shared)
 
 
-add_executable(gfg2d_sdl2_test test/main.cpp)
-target_include_directories(gfg2d_sdl2_test PUBLIC
+add_executable(gfg2d_sdl2_example example/main.cpp)
+target_include_directories(gfg2d_sdl2_example PUBLIC
         include
         ${spdlog_SOURCE_DIR}/include)
-target_link_libraries(gfg2d_sdl2_test
+target_link_libraries(gfg2d_sdl2_example
         PRIVATE
         gfg2d_sdl2)
