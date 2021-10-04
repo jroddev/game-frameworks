@@ -47,10 +47,10 @@ target_include_directories(gfg2d_sdl2 PUBLIC
 
 target_link_libraries(gfg2d_sdl2 spdlog)
 target_link_libraries(gfg2d_sdl2 SDL2-static)
-target_link_libraries(gfg2d_sdl2 libglew_shared)
 
 if(!CI)
     target_link_libraries(gfg2d_sdl2 OpenGL::GL)
+    target_link_libraries(gfg2d_sdl2 libglew_shared)
 endif()
 
 
