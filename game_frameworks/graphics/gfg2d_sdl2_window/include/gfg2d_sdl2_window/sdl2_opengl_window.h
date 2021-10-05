@@ -26,12 +26,12 @@ public:
     ~SDL2OpenglWindow();
     void pollEvents();
     void swapBuffers();
-    bool shouldClose = false;
+    [[nodiscard]] bool shouldClose() const{return _shouldClose;}
 
 private:
     SDL_Window *window;
     SDL_GLContext glContext;
-
+    bool _shouldClose = false;
 };
 
 #endif //GAME_FRAMEWORKS_SDL2_OPENGL_WINDOW_H

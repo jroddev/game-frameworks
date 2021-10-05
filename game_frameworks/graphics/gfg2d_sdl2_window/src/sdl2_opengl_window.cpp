@@ -36,7 +36,7 @@ SDL2OpenglWindow::SDL2OpenglWindow(const SDL2OpenglWindow::InitProperties&& prop
     if( GLenum glewError = glewInit() != GLEW_OK ){
         throw initialisation_error(
                 std::string{"Error initializing GLEW: "} +
-                reinterpret_cast<const char *>(glewGetErrorString(glewError)));
+                std::bit_cast<const char *>(glewGetErrorString(glewError)));
     }
 
     //Use Vsync
@@ -58,7 +58,7 @@ void SDL2OpenglWindow::pollEvents() {
     SDL_Event event;
     while( SDL_PollEvent(&event) != 0 ){
         if(event.type == SDL_QUIT ) {
-            shouldClose = true;
+            _shouldClose = true;
         }
     }
 }
