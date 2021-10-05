@@ -23,6 +23,9 @@ public:
     explicit SDL2OpenglWindow(const InitProperties&& properties);
     SDL2OpenglWindow(SDL2OpenglWindow&) = delete;
     SDL2OpenglWindow(SDL2OpenglWindow&&) = delete;
+    SDL2OpenglWindow& operator=(const SDL2OpenglWindow& other) = delete;
+    SDL2OpenglWindow const & operator=(SDL2OpenglWindow&& other) = delete;
+
     ~SDL2OpenglWindow();
     void pollEvents();
     void swapBuffers();

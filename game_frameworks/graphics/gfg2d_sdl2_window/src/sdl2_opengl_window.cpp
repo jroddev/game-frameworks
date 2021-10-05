@@ -1,5 +1,6 @@
 #include "gfg2d_sdl2_window/sdl2_opengl_window.h"
 #include <string>
+#include <bit>
 #include "spdlog/spdlog.h"
 
 
