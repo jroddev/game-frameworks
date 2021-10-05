@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 include(FetchContent)
 
-set(CI $ENV{CI})
-message(STATUS "CI: ${CI}")
+set(GPU_AVAILABLE NOT $ENV{CI})
+message(STATUS "GPU_AVAILABLE: ${CI}")
 
 project(gfg2d_sdl2 VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
@@ -10,17 +10,15 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #UNSET(GLEW_NO_GLU)
 #UNSET(OpenGL_GL_PREFERENCE)
-if(CI)
-    message(STATUS "Skipping OpenGL as Build is running in CI: ${CI}")
-else()
+#if(CI)
+#    message(STATUS "Skipping OpenGL as Build is running in CI: ${CI}")
+#else()
     SET(OpenGL_GL_PREFERENCE GLVND)
     find_package(OpenGL REQUIRED)
     if (OPENGL_FOUND)
         message(STATUS "OPENGL_FOUND libs:${OPENGL_LIBRARIES}")
     endif()
-
-
-endif()
+#endif()
 
 find_package(GLEW REQUIRED)
 if (GLEW_FOUND)
@@ -54,15 +52,13 @@ target_include_directories(gfg2d_sdl2 PUBLIC
         ${GLEW_INCLUDE_DIRS}
         )
 
-if (NOT CI)
+#if (NOT CI)
     target_link_libraries(gfg2d_sdl2 OpenGL::GL)
 
-endif()
+#endif()
 target_link_libraries(gfg2d_sdl2 GLEW::GLEW)
 target_link_libraries(gfg2d_sdl2 spdlog)
 target_link_libraries(gfg2d_sdl2 SDL2-static)
-
-
 
 
 add_executable(gfg2d_sdl2_example example/main.cpp)
