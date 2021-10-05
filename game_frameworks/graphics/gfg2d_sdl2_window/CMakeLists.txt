@@ -19,12 +19,13 @@ else()
         message(STATUS "OPENGL_FOUND libs:${OPENGL_LIBRARIES}")
     endif()
 
-    find_package(GLEW REQUIRED)
-    if (GLEW_FOUND)
-        message(STATUS "GLEW_FOUND version:${GLEW_VERSION} libs:${GLEW_LIBRARIES}")
-    endif()
+
 endif()
 
+find_package(GLEW REQUIRED)
+if (GLEW_FOUND)
+    message(STATUS "GLEW_FOUND version:${GLEW_VERSION} libs:${GLEW_LIBRARIES}")
+endif()
 
 FetchContent_Declare(
         sdl2
@@ -55,8 +56,9 @@ target_include_directories(gfg2d_sdl2 PUBLIC
 
 if (NOT CI)
     target_link_libraries(gfg2d_sdl2 OpenGL::GL)
-    target_link_libraries(gfg2d_sdl2 GLEW::GLEW)
+
 endif()
+target_link_libraries(gfg2d_sdl2 GLEW::GLEW)
 target_link_libraries(gfg2d_sdl2 spdlog)
 target_link_libraries(gfg2d_sdl2 SDL2-static)
 
