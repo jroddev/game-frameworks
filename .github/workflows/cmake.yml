@@ -21,8 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install glew-utils
-      run: sudo apt-get install -y glew-utils
+    - name: Install OpengGL and GLEW
+      run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev glew-utils
 
 
     - name: Configure CMake
