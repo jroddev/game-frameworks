@@ -4,6 +4,8 @@ project(game_frameworks VERSION 0.1.0)
 include(GoogleTest)
 enable_testing()
 
+message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+
 add_subdirectory(game_frameworks/graphics/gfg2d_sdl2_window)
 
 add_subdirectory(games/tic_tac_toe)
