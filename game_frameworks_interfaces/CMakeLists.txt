@@ -42,7 +42,7 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/game-frameworks-interfaces_main 
 
 # game_frameworks_interfaces_main is just used for compiler errors
 
-add_executable(game_frameworks_interfaces_main main.cpp)
+add_library(game_frameworks_interfaces_main main.cpp)
 set(BUILD_FLAGS "${BUILD_FLAGS} -std=c++20 -Wall -Wextra -pedantic")
 # Warnings as Errors
 set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")
