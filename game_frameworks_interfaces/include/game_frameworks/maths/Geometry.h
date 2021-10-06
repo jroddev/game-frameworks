@@ -24,7 +24,7 @@ namespace game_frameworks {
     };
 
 
-    namespace {
+    namespace {                         //NOSONAR
         struct V2 { float x,y; };       //NOSONAR
         static_assert(Vector2<V2>);
 
