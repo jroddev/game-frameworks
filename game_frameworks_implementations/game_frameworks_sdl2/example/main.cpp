@@ -1,4 +1,4 @@
-#include "gfg2d_sdl2_window/sdl2_opengl_window.h"
+#include "gf_sdl2_window/sdl2_opengl_window.h"
 #include <thread>
 #include "spdlog/spdlog.h"
 
