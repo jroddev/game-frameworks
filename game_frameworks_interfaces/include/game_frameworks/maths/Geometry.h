@@ -23,6 +23,21 @@ namespace game_frameworks {
         { v.z } -> FloatingPointRef;
     };
 
+    template<typename R>
+    concept Rect = requires(R r) {
+        { r.x } -> FloatingPointRef;
+        { r.y } -> FloatingPointRef;
+        { r.w } -> FloatingPointRef;
+        { r.h } -> FloatingPointRef;
+    };
+
+    template<typename M, typename F>
+    concept Matrix4x4 = requires(M m, F f) {
+        { std::is_floating_point_v<F> } -> std::same_as<std::true_type>;
+        { m.~M() } noexcept;
+        { m.M(std::floating_point<F>) } -> std::same_as<M>;
+    };
+
 
     namespace {                         //NOSONAR
         struct V2 { float x,y; };       //NOSONAR

@@ -1,23 +1,21 @@
-#include "gf_sdl2_window/sdl2_opengl_window.h"
-#include <thread>
 #include "spdlog/spdlog.h"
 
-using namespace std::chrono_literals;
+#include "gf_sdl2_window/sdl2_opengl_window.h"
 
 int main() {
     spdlog::info("Starting");
     try {
         RenderingSurfaceApi auto window = SDL2OpenglWindow({
-            .width = 1280,
-            .height = 720,
+            .width = 512,
+            .height = 512,
             .openglMajorVersion = 4,
             .openglMinorVersion = 6,
-            .windowTitle = "Game Frameworks SDL2 Example"
+            .windowTitle = "Game Frameworks OpenGL Example"
         });
 
         while(!window.shouldClose()) {
             window.pollEvents();
-            glClearColor(0.f, 0.f, 0.f, 1.f);
+            glClearColor(0.5f, 0.5f, 0.5f, 1.f);
             glClear(GL_COLOR_BUFFER_BIT);
             window.swapBuffers();
         }
@@ -27,4 +25,5 @@ int main() {
         spdlog::error("Exception Caught: {}", ex.what());
     }
     spdlog::info("Shutting Down");
+    return 0;
 }

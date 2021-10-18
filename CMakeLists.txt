@@ -6,5 +6,6 @@ enable_testing()
 
 add_subdirectory(game_frameworks_interfaces)
 add_subdirectory(game_frameworks_implementations/game_frameworks_sdl2)
+add_subdirectory(game_frameworks_implementations/game_frameworks_opengl)
 
 add_subdirectory(games/tic_tac_toe)
