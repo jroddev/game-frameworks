@@ -35,11 +35,9 @@ namespace game_frameworks {
         { r.h } -> FloatingPointRef;
     };
 
-    template<typename M, typename F>
-    concept Matrix4x4 = requires(M m, F f) {
-        { std::is_floating_point_v<F> } -> std::same_as<std::true_type>;
-        { m.~M() } noexcept;
-        { m.M(std::floating_point<F>) } -> std::same_as<M>;
+    template<typename M>
+    concept Matrix4x4 = requires(M m, float f) {
+        { M(f) } -> std::same_as<M>;
     };
 
 

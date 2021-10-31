@@ -4,7 +4,7 @@
 #include <glm/gtx/euler_angles.hpp>
 
 void OpenGL_RenderApi::setCamera(const Camera2D& camera, const ViewportProperties& viewport) {
-    static const constexpr glm::mat4 identityMatrix = glm::mat4{1.0f};
+    static const constexpr auto identityMatrix = glm::mat4{1.0f};
 
     const auto halfWidth = (viewport.size.x * camera.zoom)/2.f;
     const auto halfHeight = (viewport.size.y * camera.zoom)/2.f;

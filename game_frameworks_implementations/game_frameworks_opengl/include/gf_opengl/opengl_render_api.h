@@ -1,8 +1,10 @@
 #ifndef GAME_FRAMEWORKS_OPENGL_RENDER_API_H
 #define GAME_FRAMEWORKS_OPENGL_RENDER_API_H
 
+
 #include "game_frameworks/graphics/RenderingApi.h"
 #include "game_frameworks/graphics/Camera.h"
+#include "game_frameworks/maths/Geometry.h"
 #include "camera.h"
 
 #include <glm/glm.hpp>
@@ -12,8 +14,6 @@ struct Line {
     glm::vec2 end;
     glm::vec4 color;
 };
-
-static_assert(game_frameworks::LineConcept<Line>);
 
 class OpenGL_RenderApi {
 public:
@@ -31,6 +31,14 @@ private:
     glm::mat4 cameraProjectionMatrix;
 };
 
-static_assert(game_frameworks::RenderingApi<OpenGL_RenderApi>);
+namespace game_frameworks {
+    static_assert(Vector2<glm::vec2>);
+    static_assert(Vector3<glm::vec3>);
+    static_assert(Vector4<glm::vec4>);
+    static_assert(Matrix4x4<glm::mat4>);
+
+    static_assert(game_frameworks::LineConcept<Line>);
+    static_assert(game_frameworks::RenderingApi<OpenGL_RenderApi>);
+}
 
 #endif //GAME_FRAMEWORKS_OPENGL_RENDER_API_H

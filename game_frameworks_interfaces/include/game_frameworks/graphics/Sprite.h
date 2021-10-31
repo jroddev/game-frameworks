@@ -8,7 +8,7 @@ namespace game_frameworks {
 
     template<typename S>
     concept Sprite = requires(S sprite) {
-        { sprite.localTransform } -> Matrix4x4<std::tuple<int,bool>>;
+        { sprite.localTransform } -> Matrix4x4;
         { sprite.pivotPointOffset} -> Vector2;
         { sprite.size } -> Vector2;
         { sprite.textureCoords } -> Rect;
