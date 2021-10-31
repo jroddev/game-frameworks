@@ -7,7 +7,7 @@ using namespace std::chrono_literals;
 int main() {
     spdlog::info("Starting");
     try {
-        RenderingSurfaceApi auto window = SDL2OpenglWindow({
+        game_frameworks::RenderingSurfaceApi auto window = SDL2OpenglWindow({
             .width = 1280,
             .height = 720,
             .openglMajorVersion = 4,
