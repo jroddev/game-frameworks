@@ -11,11 +11,6 @@ if (OPENGL_FOUND)
     message(STATUS "OPENGL_FOUND libs:${OPENGL_LIBRARIES}")
 endif()
 
-#find_package(GLEW REQUIRED)
-#if (GLEW_FOUND)
-#    message(STATUS "GLEW_FOUND version:${GLEW_VERSION} libs:${GLEW_LIBRARIES}")
-#endif()
-
 FetchContent_Declare(
         spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog
@@ -24,26 +19,38 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spdlog)
 
 
+FetchContent_Declare(
+        glm
+        GIT_REPOSITORY https://github.com/g-truc/glm
+        GIT_TAG 0.9.9.8)
+FetchContent_MakeAvailable(glm)
+
+
 add_library(gf_opengl
-        src/gf_opengl.cpp
+        include/gf_opengl/opengl_render_api.h
+        include/gf_opengl/camera.h
+        include/gf_opengl/shader/shader.h
+        include/gf_opengl/shader/shader_utils.h
+        src/opengl_render_api.cpp
+        src/line_rendering.cpp
+        src/shader/shader.cpp
+        src/shader/shader_utils.cpp
         )
 target_include_directories(gf_opengl PUBLIC
         include
+        ${glm_SOURCE_DIR}
         ${game-frameworks-interfaces_SOURCE_DIR}/include
         ${spdlog_SOURCE_DIR}/include
         ${OPENGL_INCLUDE_DIR}
-#        ${GLEW_INCLUDE_DIRS}
         )
 
 target_link_libraries(gf_opengl OpenGL::GL)
-#target_link_libraries(gf_opengl GLEW::GLEW)
 target_link_libraries(gf_opengl spdlog)
 
 
 add_executable(gf_opengl_example example/main.cpp)
 target_include_directories(gf_opengl_example PUBLIC
         include
-        ${sdl2_SOURCE_DIR}/include
         ${gf_sdl2_SOURCE_DIR}/include
         ${spdlog_SOURCE_DIR}/include)
 target_link_libraries(gf_opengl_example

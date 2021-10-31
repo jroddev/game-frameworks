@@ -2,13 +2,9 @@
 #define GAME_FRAMEWORKS_GEOMETRY_H
 
 #include <concepts>
+#include <game_frameworks/Common.h>
 
 namespace game_frameworks {
-
-    template<typename F>
-    concept FloatingPointRef = requires {
-        std::is_floating_point_v<std::remove_reference<F>>;
-    };
 
     template<typename V>
     concept Vector2 = requires(V v) {
@@ -21,6 +17,14 @@ namespace game_frameworks {
         { v.x } -> FloatingPointRef;
         { v.y } -> FloatingPointRef;
         { v.z } -> FloatingPointRef;
+    };
+
+    template<typename V>
+    concept Vector4 = requires(V v) {
+        { v.x } -> FloatingPointRef;
+        { v.y } -> FloatingPointRef;
+        { v.z } -> FloatingPointRef;
+        { v.w } -> FloatingPointRef;
     };
 
     template<typename R>
@@ -45,6 +49,9 @@ namespace game_frameworks {
 
         struct V3 { double x,y,z; };    //NOSONAR
         static_assert(Vector3<V3>);
+
+        struct V4 { double x,y,z,w; };    //NOSONAR
+        static_assert(Vector3<V4>);
     }
 }
 #endif //GAME_FRAMEWORKS_GEOMETRY_H

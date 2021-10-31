@@ -38,6 +38,6 @@ private:
     bool _shouldClose = false;
 };
 
-static_assert(RenderingSurfaceApi<SDL2OpenglWindow>);
+static_assert(game_frameworks::RenderingSurfaceApi<SDL2OpenglWindow>);
 
 #endif //GAME_FRAMEWORKS_SDL2_OPENGL_WINDOW_H
