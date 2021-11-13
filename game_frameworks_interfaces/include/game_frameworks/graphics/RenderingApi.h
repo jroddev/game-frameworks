@@ -22,8 +22,6 @@ namespace game_frameworks {
             ) {
         { renderer.setCamera(camera, viewport ) } -> std::same_as<void>;
         { renderer.drawLine(line, f) } -> std::same_as<void>;
-        { renderer.drawSprite() } -> std::same_as<void>;
-        { renderer.drawText() } -> std::same_as<void>;
     };
 
 }

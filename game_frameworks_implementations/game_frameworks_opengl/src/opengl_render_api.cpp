@@ -21,12 +21,3 @@ void OpenGL_RenderApi::setCamera(const Camera2D& camera, const ViewportPropertie
     const auto R = glm::eulerAngleYXZ(0.F, 0.F, glm::radians(camera.rotation));
     this->cameraViewMatrix = T * R;
 }
-
-
-void OpenGL_RenderApi::drawSprite() const {
-    // TODO: implement me
-}
-
-void OpenGL_RenderApi::drawText() const {
-    // TODO: implement me
-}

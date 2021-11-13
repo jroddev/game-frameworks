@@ -5,10 +5,13 @@
 #include <string_view>
 
 namespace game_frameworks {
-    struct shader {
-        shader(std::string_view name, const std::string& vertexSrc, const std::string& fragmentSrc);
-
-        ~shader();
+    struct Shader {
+        Shader(std::string_view name, const std::string& vertexSrc, const std::string& fragmentSrc);
+        Shader(const Shader&) = delete;
+        Shader(Shader&&) = default;
+        Shader& operator=(const Shader&) = delete;
+        Shader& operator=(Shader&&) = default;
+        ~Shader();
 
         // Clang-Tidy: 'operator unsigned int' must be marked explicit to avoid unintentional implicit conversions
         // NOLINTNEXTLINE

@@ -5,7 +5,7 @@
 #include "spdlog/spdlog.h"
 
 namespace game_frameworks {
-    shader::shader(std::string_view name, const std::string& vertexSrc, const std::string& fragmentSrc) {
+    Shader::Shader(std::string_view name, const std::string& vertexSrc, const std::string& fragmentSrc) {
         spdlog::info("Compiling vertex shader for {}", name);
         const auto vertexShader = shader_utils::compile(vertexSrc, shader_utils::SHADER_TYPE::VERT);
         spdlog::info("Compiling fragment shader for {}", name);
@@ -18,12 +18,12 @@ namespace game_frameworks {
         glDeleteShader(fragmentShader);
     }
 
-    shader::~shader() {
+    Shader::~Shader() {
         spdlog::info("destroy shader");
         glDeleteProgram(shaderProgram);
     }
 
-    shader::operator uint32_t() const {
+    Shader::operator uint32_t() const {
         return shaderProgram;
     }
 

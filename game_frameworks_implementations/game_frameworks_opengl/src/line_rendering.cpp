@@ -45,7 +45,7 @@ namespace {
 }
 
 void OpenGL_RenderApi::drawLine(const Line& line, float lineWidth) {
-    static const auto shader = game_frameworks::shader{"line-shader", std::string{vertexShader}, std::string{fragmentShader}};
+    static const auto shader = game_frameworks::Shader{"line-shader", std::string{vertexShader}, std::string{fragmentShader}};
     static const auto shaderId = static_cast<uint32_t>(shader);
     static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
     static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");

@@ -10,6 +10,9 @@ project(game-frameworks-interfaces
         HOMEPAGE_URL "https://github.com/jroddev/game-frameworks")
 
 add_library(${PROJECT_NAME} INTERFACE)
+set(BUILD_FLAGS "${BUILD_FLAGS} -Wall -Wextra -pedantic")
+# Warnings as Errors
+set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")
 
 
 target_include_directories(
@@ -43,9 +46,6 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/game-frameworks-interfaces_main 
 # game_frameworks_interfaces_main is just used for compiler errors
 
 add_library(game_frameworks_interfaces_main main.cpp)
-set(BUILD_FLAGS "${BUILD_FLAGS} -std=c++20 -Wall -Wextra -pedantic")
-# Warnings as Errors
-set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")
 
 set_target_properties(game_frameworks_interfaces_main PROPERTIES COMPILE_FLAGS ${BUILD_FLAGS})
 target_include_directories(game_frameworks_interfaces_main PRIVATE include)

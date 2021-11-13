@@ -4,6 +4,9 @@ include(FetchContent)
 project(gf_opengl VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
+set(BUILD_FLAGS "${BUILD_FLAGS} -Wall -Wextra -pedantic")
+# Warnings as Errors
+set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")
 
 SET(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)

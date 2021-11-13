@@ -46,8 +46,8 @@ namespace game_frameworks::shader_utils {
         glValidateProgram(shaderProgram);
         glGetShaderiv(shaderProgram, GL_VALIDATE_STATUS, &success);
         if (!success) {
-            char infoLog[512];
-            glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+            char infoLog[512]; //NOSONAR
+            glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
             throw shader_build_exception(std::string{"Shader::validate::failed: "} + infoLog);
         }
 
