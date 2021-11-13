@@ -1,4 +1,4 @@
-#include "gfg2d_sdl2_window/sdl2_opengl_window.h"
+#include "gf_sdl2_window/sdl2_opengl_window.h"
 #include <thread>
 #include "spdlog/spdlog.h"
 
@@ -7,13 +7,13 @@ using namespace std::chrono_literals;
 int main() {
     spdlog::info("Starting");
     try {
-        auto window = SDL2OpenglWindow({
-                            .width = 1280,
-                            .height = 720,
-                            .openglMajorVersion = 4,
-                            .openglMinorVersion = 6,
-                            .windowTitle = "Test Window"
-                    });
+        game_frameworks::RenderingSurfaceApi auto window = SDL2OpenglWindow({
+            .width = 1280,
+            .height = 720,
+            .openglMajorVersion = 4,
+            .openglMinorVersion = 6,
+            .windowTitle = "Game Frameworks SDL2 Example"
+        });
 
         while(!window.shouldClose()) {
             window.pollEvents();
