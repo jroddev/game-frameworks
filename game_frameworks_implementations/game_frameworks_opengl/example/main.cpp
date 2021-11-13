@@ -16,13 +16,14 @@ void run(
             .up=game_frameworks::UP_AXIS::NEGATIVE_Y
     };
     renderer.setCamera(pixelPerfectCamera, viewport);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.f);
+
 
     while(!window.shouldClose()) {
         window.pollEvents();
-        glClearColor(0.5f, 0.5f, 0.5f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw line/s
+//        // draw line/s
         renderer.drawLine({
             .start=glm::vec2{0.F, 256.F},
             .end=glm::vec2{512.F, 256.F},
@@ -34,9 +35,9 @@ void run(
             .color=glm::vec4{0.F, 1.F, 0.F, 1.F}
         }, 1.F);
 
-        // draw sprite/s
+//        // draw sprite/s
 
-        // draw text
+//        // draw text
 
         window.swapBuffers();
     }

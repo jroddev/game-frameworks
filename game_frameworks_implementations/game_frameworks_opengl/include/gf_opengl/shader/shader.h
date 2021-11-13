@@ -12,7 +12,7 @@ namespace game_frameworks {
 
         // Clang-Tidy: 'operator unsigned int' must be marked explicit to avoid unintentional implicit conversions
         // NOLINTNEXTLINE
-        operator unsigned int() const;
+        explicit operator uint32_t() const;
 
     private:
         unsigned int shaderProgram;

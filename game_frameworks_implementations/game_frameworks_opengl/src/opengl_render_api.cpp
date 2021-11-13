@@ -23,10 +23,10 @@ void OpenGL_RenderApi::setCamera(const Camera2D& camera, const ViewportPropertie
 }
 
 
-void OpenGL_RenderApi::drawSprite() {
-
+void OpenGL_RenderApi::drawSprite() const {
+    // TODO: implement me
 }
 
-void OpenGL_RenderApi::drawText() {
-
+void OpenGL_RenderApi::drawText() const {
+    // TODO: implement me
 }

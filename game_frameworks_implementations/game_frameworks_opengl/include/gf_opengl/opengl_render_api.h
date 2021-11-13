@@ -23,8 +23,8 @@ public:
 
     void setCamera(const CameraType& camera, const ViewportType& viewport);
     void drawLine(const LineType& line, float lineWidth);
-    void drawSprite();
-    void drawText();
+    void drawSprite() const;
+    void drawText() const;
 
 private:
     glm::mat4 cameraViewMatrix;

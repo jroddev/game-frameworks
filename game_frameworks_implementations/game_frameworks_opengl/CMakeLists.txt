@@ -33,8 +33,8 @@ add_library(gf_opengl
         include/gf_opengl/shader/shader_utils.h
         src/opengl_render_api.cpp
         src/line_rendering.cpp
-        src/shader/shader.cpp
         src/shader/shader_utils.cpp
+        src/shader/shader.cpp
         )
 target_include_directories(gf_opengl PUBLIC
         include
@@ -57,3 +57,6 @@ target_link_libraries(gf_opengl_example
         PRIVATE
         gf_opengl
         gf_sdl2)
+
+# https://www.jetbrains.com/help/clion/google-sanitizers.html#makefiles-compdb
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g")

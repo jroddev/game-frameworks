@@ -46,17 +46,18 @@ namespace {
 
 void OpenGL_RenderApi::drawLine(const Line& line, float lineWidth) {
     static const auto shader = game_frameworks::shader{"line-shader", std::string{vertexShader}, std::string{fragmentShader}};
-    static const auto projectionMatrixLocation = glGetUniformLocation(shader, "projection");
-    static const auto viewMatrixLocation = glGetUniformLocation(shader, "view");
-    static const auto startLocation = glGetUniformLocation(shader, "lineStart");
-    static const auto endLocation = glGetUniformLocation(shader, "lineEnd");
-    static const auto colorLocation = glGetUniformLocation(shader, "inputLineColor");
+    static const auto shaderId = static_cast<uint32_t>(shader);
+    static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
+    static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");
+    static const auto startLocation = glGetUniformLocation(shaderId, "lineStart");
+    static const auto endLocation = glGetUniformLocation(shaderId, "lineEnd");
+    static const auto colorLocation = glGetUniformLocation(shaderId, "inputLineColor");
     static const auto vao = getVertexArrayObject();
 
     //////////////////////////
 
     glBindVertexArray(vao);
-    glUseProgram(shader);
+    glUseProgram(shaderId);
     glLineWidth(lineWidth);
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(this->cameraViewMatrix));
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(this->cameraProjectionMatrix));
