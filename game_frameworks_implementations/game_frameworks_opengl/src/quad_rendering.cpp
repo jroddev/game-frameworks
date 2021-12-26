@@ -37,57 +37,46 @@ namespace game_frameworks {
         }
     )"""";
 
+        inline void prepareQuadDrawCall(
+                const OpenGLMeshProperties& mesh,
+                const OpenGL_RenderApi::QuadType& quad,
+                const OpenGL_RenderApi::TransformType& worldTransform,
+                const glm::mat4& cameraViewMatrix,
+                const glm::mat4& cameraProjectionMatrix) {
+            static const auto shader = game_frameworks::Shader{"quad-wireframe-shader", std::string{vertexShader},
+                                                               std::string{fragmentShader}};
+            static const auto shaderId = static_cast<uint32_t>(shader);
+            static const auto pivotPointOffsetLocation = glGetUniformLocation(shaderId, "pivotPointOffset");
+            static const auto sizeLocation = glGetUniformLocation(shaderId, "size");
+            static const auto modelMatrixLocation = glGetUniformLocation(shaderId, "model");
+            static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");
+            static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
+            static const auto colorLocation = glGetUniformLocation(shaderId, "color");
+
+            //////////////////////////
+
+            glBindVertexArray(mesh.vao);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ebo);
+            glUseProgram(shaderId);
+            glUniform2fv(pivotPointOffsetLocation, 1, glm::value_ptr(quad.pivotPointOffset));
+            glUniform2fv(sizeLocation, 1, glm::value_ptr(quad.size));
+            glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(worldTransform.toMatrix()));
+            glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
+            glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(cameraProjectionMatrix));
+            glUniform4fv(colorLocation, 1, glm::value_ptr(quad.color));
+        }
+
     }
 
     void OpenGL_RenderApi::draw(const QuadType &quad, const TransformType &worldTransform) const {
-        static const auto shader = game_frameworks::Shader{"quad-wireframe-shader", std::string{vertexShader},
-                                                           std::string{fragmentShader}};
-        static const auto shaderId = static_cast<uint32_t>(shader);
-        static const auto pivotPointOffsetLocation = glGetUniformLocation(shaderId, "pivotPointOffset");
-        static const auto sizeLocation = glGetUniformLocation(shaderId, "size");
-        static const auto modelMatrixLocation = glGetUniformLocation(shaderId, "model");
-        static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");
-        static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
-        static const auto colorLocation = glGetUniformLocation(shaderId, "color");
-
-        //////////////////////////
-
-        glBindVertexArray(quad_mesh.vao);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quad_mesh.ebo);
-        glUseProgram(shaderId);
-        glUniform2fv(pivotPointOffsetLocation, 1, glm::value_ptr(quad.pivotPointOffset));
-        glUniform2fv(sizeLocation, 1, glm::value_ptr(quad.size));
-        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(worldTransform.toMatrix()));
-        glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
-        glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(cameraProjectionMatrix));
-        glUniform4fv(colorLocation, 1, glm::value_ptr(quad.color));
+        prepareQuadDrawCall(quad_mesh, quad, worldTransform, cameraViewMatrix, cameraProjectionMatrix);
         glDrawElements(GL_TRIANGLES, quad_mesh.indicesSize, GL_UNSIGNED_INT, nullptr);
     }
 
     void OpenGL_RenderApi::drawWireframe(const QuadType &quad, const TransformType &worldTransform,
                                          float borderWidth) const {
-        static const auto shader = game_frameworks::Shader{"quad-wireframe-shader", std::string{vertexShader},
-                                                           std::string{fragmentShader}};
-        static const auto shaderId = static_cast<uint32_t>(shader);
-        static const auto pivotPointOffsetLocation = glGetUniformLocation(shaderId, "pivotPointOffset");
-        static const auto sizeLocation = glGetUniformLocation(shaderId, "size");
-        static const auto modelMatrixLocation = glGetUniformLocation(shaderId, "model");
-        static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");
-        static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
-        static const auto colorLocation = glGetUniformLocation(shaderId, "color");
-
-        //////////////////////////
-
-        glBindVertexArray(quad_mesh.vao);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quad_mesh.ebo);
-        glUseProgram(shaderId);
+        prepareQuadDrawCall(quad_mesh, quad, worldTransform, cameraViewMatrix, cameraProjectionMatrix);
         glLineWidth(borderWidth);
-        glUniform2fv(pivotPointOffsetLocation, 1, glm::value_ptr(quad.pivotPointOffset));
-        glUniform2fv(sizeLocation, 1, glm::value_ptr(quad.size));
-        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(worldTransform.toMatrix()));
-        glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
-        glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(cameraProjectionMatrix));
-        glUniform4fv(colorLocation, 1, glm::value_ptr(quad.color));
         glDrawArrays(GL_LINE_LOOP, 0, 4);
     }
 
