@@ -36,6 +36,7 @@ add_library(gf_opengl
         include/gf_opengl/shader/shader_utils.h
         src/opengl_render_api.cpp
         src/line_rendering.cpp
+        src/quad_rendering.cpp
         src/shader/shader_utils.cpp
         src/shader/shader.cpp
         )
