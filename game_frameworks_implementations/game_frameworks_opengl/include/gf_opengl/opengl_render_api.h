@@ -8,6 +8,8 @@
 #include "camera.h"
 #include "gf_opengl/mesh/mesh_properties.h"
 #include "gf_opengl/maths/transform.h"
+#include "gf_opengl/mesh/mesh_quad.h"
+#include "gf_opengl/mesh/mesh_uploader.h"
 
 #include <glm/glm.hpp>
 
@@ -32,6 +34,14 @@ namespace game_frameworks {
         glm::vec4 color;
     };
 
+    inline auto uploadQuadMesh() {
+        return uploadMeshToOpenGL(
+                centered_unit_quad::vertices,
+                centered_unit_quad::indices,
+                centered_unit_quad::stride,
+                centered_unit_quad::textureCoordIndexOffset);
+    }
+
 
     class OpenGL_RenderApi {
     public:
@@ -43,19 +53,15 @@ namespace game_frameworks {
         using TransformType = Transform;
 
         OpenGL_RenderApi();
-
         void setCamera(const CameraType &camera, const ViewportType &viewport);
-
         void draw(const LineType &line, float lineWidth);
         void draw(const QuadType &quad, const TransformType &worldTransform) const;
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
-//    void drawSprite(const Sprite& sprite, const glm::mat4& model, const glm::mat4& view) const;
-//    void drawText() const;
 
     private:
         glm::mat4 cameraViewMatrix;
         glm::mat4 cameraProjectionMatrix;
-        OpenGLMeshProperties quad_mesh;
+        OpenGLMeshProperties quad_mesh = uploadQuadMesh();
     };
 
     static_assert(Vector2<glm::vec2>);

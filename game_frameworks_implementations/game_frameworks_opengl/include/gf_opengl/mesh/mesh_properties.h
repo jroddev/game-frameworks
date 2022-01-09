@@ -5,7 +5,9 @@
 
 namespace game_frameworks {
     struct OpenGLMeshProperties {
-        GLuint vao, vbo, ebo;
+        GLuint vao;
+        GLuint vbo;
+        GLuint ebo;
         int indicesSize;
     };
 }

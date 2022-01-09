@@ -7,7 +7,7 @@
 
 namespace game_frameworks {
 
-    namespace CenteredUnitQuad {
+    namespace centered_unit_quad {
         constexpr const auto vertices = std::array<Vertex, 4>{
                 // positions            // texture coords
                 Vertex{{0.5F, 0.5F},
@@ -30,16 +30,16 @@ namespace game_frameworks {
         constexpr const auto stride = sizeof(Vertex);
     }
 
-    namespace QuadPivotOffset {
+    namespace quad_pivot_offset {
         static const float LEFT = 0.5F;
         static const float RIGHT = -0.5F;
         static const float TOP = 0.5F;
         static const float BOTTOM = -0.5F;
-        static const glm::vec2 CENTER = glm::vec2{0.F, 0.F};
-        static const glm::vec2 TOP_LEFT = glm::vec2{LEFT, TOP};
-        static const glm::vec2 TOP_RIGHT = glm::vec2{RIGHT, TOP};
-        static const glm::vec2 BOTTOM_LEFT = glm::vec2{LEFT, BOTTOM};
-        static const glm::vec2 BOTTOM_RIGHT = glm::vec2{RIGHT, BOTTOM};
+        static const glm::vec2 CENTER = glm::vec2{0.F, 0.F};            // NOLINT
+        static const glm::vec2 TOP_LEFT = glm::vec2{LEFT, TOP};         // NOLINT
+        static const glm::vec2 TOP_RIGHT = glm::vec2{RIGHT, TOP};       // NOLINT
+        static const glm::vec2 BOTTOM_LEFT = glm::vec2{LEFT, BOTTOM};   // NOLINT
+        static const glm::vec2 BOTTOM_RIGHT = glm::vec2{RIGHT, BOTTOM}; // NOLINT
     }
 
 }

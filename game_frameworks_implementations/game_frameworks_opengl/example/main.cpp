@@ -55,22 +55,21 @@ void run(
         auto t = Transform{};
         t.position.x = viewport.size.x * 0.5F;
         t.position.y = viewport.size.y * 0.5F;
-//        t.rotation.z = 15.F;
         renderer.draw(Quad{
-                .pivotPointOffset=QuadPivotOffset::TOP_LEFT,
+                .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
                 .size={50.F, 50.F},
                 .color={0.F, 1.F, 1.F, 1.F}
         }, t);
 
         renderer.draw(Quad{
-                .pivotPointOffset=QuadPivotOffset::BOTTOM_RIGHT,
+                .pivotPointOffset=quad_pivot_offset::BOTTOM_RIGHT,
                 .size={50.F, 50.F},
                 .color={1.F, 1.F, 0.F, 1.F}
         }, t);
 
 
         renderer.drawWireframe(Quad{
-                .pivotPointOffset=QuadPivotOffset::CENTER,
+                .pivotPointOffset=quad_pivot_offset::CENTER,
                 .size={50.F, 50.F},
                 .color={0.F, 0.F, 1.F, 1.F}
         }, t, 2.0F);

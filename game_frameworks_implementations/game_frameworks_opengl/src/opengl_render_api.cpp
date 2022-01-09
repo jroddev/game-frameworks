@@ -26,12 +26,10 @@ namespace game_frameworks {
     }
 
 
+
     OpenGL_RenderApi::OpenGL_RenderApi() :
-            quad_mesh(uploadMeshToOpenGL(
-                    CenteredUnitQuad::vertices,
-                    CenteredUnitQuad::indices,
-                    CenteredUnitQuad::stride,
-                    CenteredUnitQuad::textureCoordIndexOffset)) {
+            cameraViewMatrix(),
+            cameraProjectionMatrix(){
     }
 
 }
