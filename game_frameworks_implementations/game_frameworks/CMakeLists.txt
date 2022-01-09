@@ -43,7 +43,7 @@ target_link_libraries(game_frameworks spdlog)
 ##########################################
 ### TESTS
 ##########################################
-add_executable(game_frameworks_test test/main.cpp test/utils/entity_identifier.cpp)
+add_executable(game_frameworks_test test/main.cpp test/utils/entity_identifier.cpp test/utils/filename_cache.cpp)
 target_include_directories(game_frameworks_test
         PRIVATE
         include

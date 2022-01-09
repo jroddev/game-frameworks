@@ -9,3 +9,17 @@ TEST(EntityIdentifier, SameStringGeneratesSameId) {
             game_frameworks::EntityIdentifier{str}
             );
 }
+
+TEST(EntityIdentifier, DiffStringGeneratesDiffId) {
+    EXPECT_NE(
+            game_frameworks::EntityIdentifier{dummy<std::string>(10)},
+            game_frameworks::EntityIdentifier{dummy<std::string>(10)}
+    );
+}
+
+TEST(EntityIdentifier, SubStringGeneratesDiffId) {
+    EXPECT_NE(
+            game_frameworks::EntityIdentifier{"Hello World"},
+            game_frameworks::EntityIdentifier{"Hello Worl"}
+    );
+}

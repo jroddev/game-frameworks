@@ -13,9 +13,12 @@ namespace game_frameworks {
                 EntityIdentifier::Hasher,
                 EntityIdentifier::Compare> cache;
 
+    public:
         void addSingle(const std::string& value);
         void addRecursivePath(std::string_view path);
         std::optional<std::string_view> get(const EntityIdentifier& key) const;
+        size_t getCacheCount() const;
+        std::vector<std::string> getAllCachedValues() const;
     };
 }
 

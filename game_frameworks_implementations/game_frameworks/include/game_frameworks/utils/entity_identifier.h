@@ -14,9 +14,7 @@ namespace game_frameworks {
                 hash(std::hash<std::string_view>()(name)) {
         }
 
-        constexpr bool operator==(const EntityIdentifier &other) const {
-            return other.hash == hash;
-        }
+        constexpr bool operator==(const EntityIdentifier &other) const = default;
 
         constexpr explicit operator KeyType() const {
             return hash;
@@ -35,14 +33,14 @@ namespace game_frameworks {
         };
     };
 
-    static_assert(
-            std::is_invocable<const EntityIdentifier::Compare,
-            const EntityIdentifier &,
-            const EntityIdentifier &>::value);
+    static_assert(std::is_invocable_v<
+                    const EntityIdentifier::Compare,
+                    const EntityIdentifier &,
+                    const EntityIdentifier &>);
 
-    static_assert(
-            std::is_invocable<const EntityIdentifier::Hasher,
-            const EntityIdentifier>::value);
+    static_assert(std::is_invocable_v<
+                    const EntityIdentifier::Hasher,
+                    const EntityIdentifier>);
 }
 
 #endif //GAME_FRAMEWORKS_ENTITYIDENTIFIER_H
