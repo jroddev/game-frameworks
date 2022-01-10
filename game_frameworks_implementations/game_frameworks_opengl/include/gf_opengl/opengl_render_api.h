@@ -45,15 +45,12 @@ namespace game_frameworks {
 
     class OpenGL_RenderApi {
     public:
-        using CameraType = Camera2D;
-        using ViewportType = ViewportProperties;
         using LineType = Line;
         using QuadType = Quad;
-        using SpriteType = Sprite;
         using TransformType = Transform;
 
         OpenGL_RenderApi();
-        void setCamera(const CameraType &camera, const ViewportType &viewport);
+        void setCamera(const Camera2D &camera, const ViewportProperties &viewport);
         void draw(const LineType &line, float lineWidth);
         void draw(const QuadType &quad, const TransformType &worldTransform) const;
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
