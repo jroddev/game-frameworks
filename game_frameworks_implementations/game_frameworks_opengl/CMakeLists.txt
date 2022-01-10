@@ -15,14 +15,6 @@ if (OPENGL_FOUND)
 endif()
 
 FetchContent_Declare(
-        spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog
-        GIT_TAG        v1.9.2
-)
-FetchContent_MakeAvailable(spdlog)
-
-
-FetchContent_Declare(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm
         GIT_TAG 0.9.9.8)
@@ -36,20 +28,19 @@ add_library(gf_opengl
         include/gf_opengl/shader/shader_utils.h
         src/opengl_render_api.cpp
         src/line_rendering.cpp
+        src/quad_rendering.cpp
         src/shader/shader_utils.cpp
         src/shader/shader.cpp
         )
 target_include_directories(gf_opengl PUBLIC
         include
         ${glm_SOURCE_DIR}
+        ${game_frameworks_SOURCE_DIR}/include
         ${game-frameworks-interfaces_SOURCE_DIR}/include
-        ${spdlog_SOURCE_DIR}/include
         ${OPENGL_INCLUDE_DIR}
         )
 
-target_link_libraries(gf_opengl OpenGL::GL)
-target_link_libraries(gf_opengl spdlog)
-
+target_link_libraries(gf_opengl game_frameworks OpenGL::GL)
 
 add_executable(gf_opengl_example example/main.cpp)
 target_include_directories(gf_opengl_example PUBLIC

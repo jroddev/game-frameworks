@@ -26,14 +26,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sdl2)
 
-FetchContent_Declare(
-        spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog
-        GIT_TAG        v1.9.2
-)
-FetchContent_MakeAvailable(spdlog)
-
-
 add_library(gf_sdl2
         include/gf_sdl2_window/sdl2_opengl_window.h
         src/sdl2_opengl_window.cpp
@@ -42,14 +34,13 @@ target_include_directories(gf_sdl2 PUBLIC
         include
         ${game-frameworks-interfaces_SOURCE_DIR}/include
         ${sdl2_SOURCE_DIR}/include
-        ${spdlog_SOURCE_DIR}/include
         ${OPENGL_INCLUDE_DIR}
         ${GLEW_INCLUDE_DIRS}
         )
 
+target_link_libraries(gf_sdl2 game_frameworks)
 target_link_libraries(gf_sdl2 OpenGL::GL)
 target_link_libraries(gf_sdl2 GLEW::GLEW)
-target_link_libraries(gf_sdl2 spdlog)
 target_link_libraries(gf_sdl2 SDL2-static)
 
 

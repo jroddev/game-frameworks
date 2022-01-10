@@ -40,6 +40,16 @@ namespace game_frameworks {
         { M(f) } -> std::same_as<M>;
     };
 
+    template<typename T>
+    concept TransformConcept =
+            Matrix4x4<typename T::MatrixType> &&
+            requires(T t, float f, typename T::MatrixType m) {
+        { t.toMatrix() } -> Matrix4x4;
+        { T::from(m) } -> std::same_as<T>;
+        { T::from(f,f,f,f,f)} -> std::same_as<T>;
+        { T::multi(t, t)} -> std::same_as<T>;
+    };
+
 
     namespace {                         //NOSONAR
         struct V2 { float x,y; };       //NOSONAR

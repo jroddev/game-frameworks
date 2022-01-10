@@ -7,10 +7,10 @@
 namespace game_frameworks {
 
     template<typename S>
-    concept Sprite = requires(S sprite) {
-        { sprite.localTransform } -> Matrix4x4;
+    concept SpriteConcept = requires(S sprite) {
         { sprite.pivotPointOffset} -> Vector2;
         { sprite.size } -> Vector2;
+        { sprite.textureTint } -> Vector4;
         { sprite.textureCoords } -> Rect;
     };
 

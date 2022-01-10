@@ -4,9 +4,11 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <string>
 
-namespace {
+namespace game_frameworks {
 
-    constexpr const auto vertexShader = R""""(
+    namespace {
+
+        constexpr const auto vertexShader = R""""(
         #version 330 core
         uniform mat4 view;
         uniform mat4 projection;
@@ -25,7 +27,7 @@ namespace {
         }
     )"""";
 
-    constexpr const auto fragmentShader = R""""(
+        constexpr const auto fragmentShader = R""""(
         #version 330 core
         in vec4 lineColor;
         out vec4 fragmentColor;
@@ -35,34 +37,37 @@ namespace {
         }
     )"""";
 
-    GLuint getVertexArrayObject() {
-        GLuint vao;
-        glGenVertexArrays(1, &vao); // glDeleteVertexArrays
-        glBindVertexArray(vao);
-        return vao;
+        GLuint getVertexArrayObject() {
+            GLuint vao;
+            glGenVertexArrays(1, &vao); // glDeleteVertexArrays
+            glBindVertexArray(vao);
+            return vao;
+        }
+
     }
 
-}
+    void OpenGL_RenderApi::draw(const Line &line, float lineWidth) {
+        static const auto shader = game_frameworks::Shader{"line-shader", std::string{vertexShader},
+                                                           std::string{fragmentShader}};
+        static const auto shaderId = static_cast<uint32_t>(shader);
+        static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
+        static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");
+        static const auto startLocation = glGetUniformLocation(shaderId, "lineStart");
+        static const auto endLocation = glGetUniformLocation(shaderId, "lineEnd");
+        static const auto colorLocation = glGetUniformLocation(shaderId, "inputLineColor");
+        static const auto vao = getVertexArrayObject();
 
-void OpenGL_RenderApi::drawLine(const Line& line, float lineWidth) {
-    static const auto shader = game_frameworks::Shader{"line-shader", std::string{vertexShader}, std::string{fragmentShader}};
-    static const auto shaderId = static_cast<uint32_t>(shader);
-    static const auto projectionMatrixLocation = glGetUniformLocation(shaderId, "projection");
-    static const auto viewMatrixLocation = glGetUniformLocation(shaderId, "view");
-    static const auto startLocation = glGetUniformLocation(shaderId, "lineStart");
-    static const auto endLocation = glGetUniformLocation(shaderId, "lineEnd");
-    static const auto colorLocation = glGetUniformLocation(shaderId, "inputLineColor");
-    static const auto vao = getVertexArrayObject();
+        //////////////////////////
 
-    //////////////////////////
+        glBindVertexArray(vao);
+        glUseProgram(shaderId);
+        glLineWidth(lineWidth);
+        glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(this->cameraViewMatrix));
+        glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(this->cameraProjectionMatrix));
+        glUniform2fv(startLocation, 1, glm::value_ptr(line.start));
+        glUniform2fv(endLocation, 1, glm::value_ptr(line.end));
+        glUniform4fv(colorLocation, 1, glm::value_ptr(line.color));
+        glDrawArrays(GL_LINES, 0, 2);
+    }
 
-    glBindVertexArray(vao);
-    glUseProgram(shaderId);
-    glLineWidth(lineWidth);
-    glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(this->cameraViewMatrix));
-    glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(this->cameraProjectionMatrix));
-    glUniform2fv(startLocation, 1, glm::value_ptr(line.start));
-    glUniform2fv(endLocation,   1, glm::value_ptr(line.end));
-    glUniform4fv(colorLocation, 1, glm::value_ptr(line.color));
-    glDrawArrays(GL_LINES, 0, 2);
 }
