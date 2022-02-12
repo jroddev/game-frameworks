@@ -1,28 +1,16 @@
-cmake_minimum_required(VERSION 3.0)
-include(FetchContent)
-
 project(gf_sdl2 VERSION 0.1.0)
-set(CMAKE_CXX_STANDARD 20)
-#set(CMAKE_VERBOSE_MAKEFILE ON)
-set(BUILD_FLAGS "${BUILD_FLAGS} -Wall -Wextra -pedantic")
-# Warnings as Errors
-set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")
 
-SET(OpenGL_GL_PREFERENCE GLVND)
-find_package(OpenGL REQUIRED)
-if (OPENGL_FOUND)
-    message(STATUS "OPENGL_FOUND libs:${OPENGL_LIBRARIES}")
-endif()
+find_package(opengl_system)
+find_package(GLEW)
 
-find_package(GLEW REQUIRED)
-if (GLEW_FOUND)
-    message(STATUS "GLEW_FOUND version:${GLEW_VERSION} libs:${GLEW_LIBRARIES}")
-endif()
-
+# SDL2 takes 15-20 minutes to build on GitHub with Conan recipe
+# Conan version also installs some system packages that are hard
+# to cache.
+# Use FetchContent instead
 FetchContent_Declare(
         sdl2
         GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-        GIT_TAG        release-2.0.16
+        GIT_TAG        release-2.0.20
 )
 FetchContent_MakeAvailable(sdl2)
 
@@ -39,15 +27,10 @@ target_include_directories(gf_sdl2 PUBLIC
         )
 
 target_link_libraries(gf_sdl2 game_frameworks)
-target_link_libraries(gf_sdl2 OpenGL::GL)
+target_link_libraries(gf_sdl2 opengl::opengl)
 target_link_libraries(gf_sdl2 GLEW::GLEW)
-target_link_libraries(gf_sdl2 SDL2-static)
+target_link_libraries(gf_sdl2 SDL2::SDL2)
 
 
-add_executable(gf_sdl2_example example/main.cpp)
-target_include_directories(gf_sdl2_example PUBLIC
-        include
-        ${spdlog_SOURCE_DIR}/include)
-target_link_libraries(gf_sdl2_example
-        PRIVATE
-        gf_sdl2)
+#####
+add_subdirectory(example)

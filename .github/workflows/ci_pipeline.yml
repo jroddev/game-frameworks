@@ -1,0 +1,69 @@
+name: ci_pipeline
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+
+env:
+  BUILD_TYPE: Release
+  BUILD_DIR: ${{github.workspace}}/build
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Required OS Packages
+        uses: ./.github/workflows/system_packages
+      - name: Install Conan and Dependencies
+        uses: ./.github/workflows/conan
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          build_type: ${{ env.BUILD_TYPE }}
+
+  build_and_test:
+    needs: setup
+    runs-on: ubuntu-latest
+    env:
+      BUILD_TYPE: Release
+      BUILD_DIR: ${{github.workspace}}/build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Restore OS caches
+        uses: ./.github/workflows/system_packages
+      - name: Restore Conan caches
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          build_type: ${{ env.BUILD_TYPE }}
+        uses: ./.github/workflows/conan
+      - name: Build CMake Project
+        run: |
+          cmake -B ${{env.BUILD_DIR}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake --build ${{env.BUILD_DIR}} --config ${{env.BUILD_TYPE}}
+      - name: Run Test
+        working-directory: ${{env.BUILD_DIR}}
+        run: ctest --extra-verbose -C ${{env.BUILD_TYPE}}
+
+  sonar_scan:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Restore OS caches
+        uses: ./.github/workflows/system_packages
+      - name: Restore Conan caches
+        uses: ./.github/workflows/conan
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          build_type: ${{ env.BUILD_TYPE }}
+      - name: Run Sonar Scan
+        uses: ./.github/workflows/sonar_scan
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          sonar_token: ${{ secrets.SONAR_TOKEN }}

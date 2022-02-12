@@ -5,7 +5,8 @@
 
 
 SDL2OpenglWindow::SDL2OpenglWindow(const SDL2OpenglWindow::InitProperties&& properties) {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
+    if (SDL_Init(SDL_INIT_VIDEO) != 0){
+        spdlog::error(SDL_GetError());
         throw initialisation_error("Unable to initialize SDL2.");
     }
 
