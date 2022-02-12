@@ -16,25 +16,30 @@ inputs:
     decription: "Directory where build-wrapper output will be placed"
     required: false
     default: "build_wrapper_output_directory"
+  sonar_server_url:
+    description: "url of target sonar instance"
+    required: false
+    default: "https://sonarcloud.io"
+  sonar_scanner:version:
+    description: "sonar scanner version"
+    required: false
+    default: "4.4.0.2170"
 
 runs:
   using: "composite"
-  env:
-    SONAR_SCANNER_VERSION: "4.4.0.2170"
-    SONAR_SERVER_URL: "https://sonarcloud.io"
   steps:
     - name: Download Sonar Scanner
       shell: bash
       run: |
-        SONAR_SCANNER_DOWNLOAD_URL="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip"
+        SONAR_SCANNER_DOWNLOAD_URL="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ inputs.sonar_scanner_version }}-linux.zip"
         mkdir -p $HOME/.sonar
         curl -sSLo $HOME/.sonar/sonar-scanner.zip $SONAR_SCANNER_DOWNLOAD_URL
         unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
-        echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+        echo "$HOME/.sonar/sonar-scanner-${{ inputs.sonar_scanner_version }}-linux/bin" >> $GITHUB_PATH
     - name: Download Sonar Build Wrapper
       shell: bash
       run: |
-          BUILD_WRAPPER_DOWNLOAD_URL="${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip"
+          BUILD_WRAPPER_DOWNLOAD_URL="${{ inputs.sonar_server_url }}/static/cpp/build-wrapper-linux-x86.zip"
           curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip $BUILD_WRAPPER_DOWNLOAD_URL
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
@@ -49,5 +54,5 @@ runs:
         SONAR_TOKEN: ${{ inputs.sonar_token }}
       shell: bash
       run: |
-          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" \
+          sonar-scanner --define sonar.host.url="${{ inputs.sonar_server_url }}" \
             --define sonar.cfamily.build-wrapper-output="${{ inputs.build_wrapper_output_directory }}"
