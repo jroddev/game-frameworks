@@ -1,6 +1,8 @@
 name: 'OS Update'
 description: 'Install required Apt Packages'
 
+inputs:
+
 runs:
   using: "composite"
   steps:
