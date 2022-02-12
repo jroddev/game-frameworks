@@ -7,16 +7,10 @@ runs:
   - name: Install GCC 11
     shell: bash
     run: |
-      GCC_VERSION=$(g++ -dumpversion)
-      echo "gcc version: [$GCC_VERSION]"
-      if [[ "$GCC_VERSION" != "11."* ]]; then
-        echo "Installing G++ 11"
-        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-        sudo apt update && sudo apt install gcc-11 g++-11
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
-      elif
-        echo "G++ 11 is already installed
-      fi
+      echo "Installing G++ 11"
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+      sudo apt update && sudo apt install gcc-11 g++-11
+      sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
 
   - name: Install OpenGL and GlEW
     shell: bash
