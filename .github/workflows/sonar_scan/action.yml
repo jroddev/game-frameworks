@@ -17,12 +17,15 @@ inputs:
     required: false
     default: "build_wrapper_output_directory"
 
+env:
+  SONAR_SCANNER_VERSION: 4.4.0.2170
+  SONAR_SERVER_URL: "https://sonarcloud.io"
+
 runs:
   using: "composite"
   steps:
     - name: Download Sonar Scanner
       env:
-        SONAR_SCANNER_VERSION: 4.4.0.2170
         SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
       shell: bash
       run: |
