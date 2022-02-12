@@ -14,6 +14,7 @@ runs:
           - /usr/bin/conan
         key: ${{ runner.os }}-${{ env.cache-name }}-1.0
     - name: Install GCC 11
+      shell: bash
       run: |
         GCC_VERSION=$(g++ -dumpversion)
         echo "gcc version: [$GCC_VERSION]"
@@ -23,6 +24,8 @@ runs:
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
         fi
     - name: Install OpenGL and GlEW
+      shell: bash
       run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev libglew-dev
     - name: Install Conan C++ Package Manager
+      shell: bash
       run: sudo apt-get install -y conan
