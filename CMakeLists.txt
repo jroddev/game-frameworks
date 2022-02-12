@@ -30,4 +30,4 @@ add_subdirectory(game_frameworks_implementations/game_frameworks_opengl)
 
 add_subdirectory(games/tic_tac_toe)
 
-include(cmake/list_all_variables.cmake)
+#include(cmake/list_all_variables.cmake)

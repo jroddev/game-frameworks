@@ -18,5 +18,4 @@ runs:
       echo "=============================="
       echo "=============================="
       echo "Installing Graphics Dependencies"
-      sudo apt-get install -y libegl-dev libglu1-mesa-dev mesa-common-dev libx11-xcb-dev
-    # libglew-dev
+      sudo apt-get install -y libegl-dev libglu1-mesa-dev mesa-common-dev
