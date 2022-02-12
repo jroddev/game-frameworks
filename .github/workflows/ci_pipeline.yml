@@ -18,9 +18,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Required OS Packages
-        uses: ./.github/workflows/apt-install.yml
+        uses: ./.github/workflows/composite/apt-install.yml
       - name: Install Conan and Dependencies
-        uses: ./.github/workflows/conan-dependencies.yml
+        uses: ./.github/workflows/composite/conan-dependencies.yml
         with:
           build_dir: ${{ env.BUILD_DIR }}
           build_type: ${{ env.BUILD_TYPE }}
@@ -35,12 +35,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Restore OS caches
-        uses: ./.github/workflows/apt-install.yml
+        uses: ./.github/workflows/composite/apt-install.yml
       - name: Restore Conan caches
         with:
           build_dir: ${{ env.BUILD_DIR }}
           build_type: ${{ env.BUILD_TYPE }}
-        uses: ./.github/workflows/conan-dependencies.yml
+        uses: ./.github/workflows/composite/conan-dependencies.yml
       - name: Build CMake Project
         run: |
           cmake -B ${{env.BUILD_DIR}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -56,9 +56,9 @@ jobs:
       - name: Restore OS caches
         uses: ./.github/workflows/apt-install.yml
       - name: Restore Conan caches
-        uses: ./.github/workflows/conan-dependencies.yml
+        uses: ./.github/workflows/composite/conan-dependencies.yml
         with:
           build_dir: ${{ env.BUILD_DIR }}
           build_type: ${{ env.BUILD_TYPE }}
       - name: Run Sonar Scan
-        uses: ./.github/workflows/sonar_scan.yml
+        uses: ./.github/workflows/composite/sonar_scan.yml
