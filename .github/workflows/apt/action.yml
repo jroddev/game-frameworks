@@ -2,6 +2,9 @@ name: 'OS Update'
 description: 'Install required Apt Packages'
 
 inputs:
+  placeholder:
+    required: false
+    default: ''
 
 runs:
   using: "composite"
