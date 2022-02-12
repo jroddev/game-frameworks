@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.17)
-include(FetchContent)
 include(GNUInstallDirs)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -44,7 +42,6 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/game-frameworks-interfaces_main 
 
 
 # game_frameworks_interfaces_main is just used for compiler errors
-
 add_library(game_frameworks_interfaces_main main.cpp)
 
 set_target_properties(game_frameworks_interfaces_main PROPERTIES COMPILE_FLAGS ${BUILD_FLAGS})

@@ -1,0 +1,64 @@
+name: ci_pipeline
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+    types: [opened, synchronize, reopened]
+
+env:
+  BUILD_TYPE: Release
+  BUILD_DIR: ${{github.workspace}}/build
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Required OS Packages
+        uses: ./.github/workflows/apt-install.yml
+      - name: Install Conan and Dependencies
+        uses: ./.github/workflows/conan-dependencies.yml
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          build_type: ${{ env.BUILD_TYPE }}
+
+  build_and_test:
+    needs: setup
+    runs-on: ubuntu-latest
+    env:
+      BUILD_TYPE: Release
+      BUILD_DIR: ${{github.workspace}}/build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Restore OS caches
+        uses: ./.github/workflows/apt-install.yml
+      - name: Restore Conan caches
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          build_type: ${{ env.BUILD_TYPE }}
+        uses: ./.github/workflows/conan-dependencies.yml
+      - name: Build CMake Project
+        run: |
+          cmake -B ${{env.BUILD_DIR}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake --build ${{env.BUILD_DIR}} --config ${{env.BUILD_TYPE}}
+      - name: Run Test
+        working-directory: ${{env.BUILD_DIR}}
+        run: ctest --extra-verbose -C ${{env.BUILD_TYPE}}
+
+  sonar_scan:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore OS caches
+        uses: ./.github/workflows/apt-install.yml
+      - name: Restore Conan caches
+        uses: ./.github/workflows/conan-dependencies.yml
+        with:
+          build_dir: ${{ env.BUILD_DIR }}
+          build_type: ${{ env.BUILD_TYPE }}
+      - name: Run Sonar Scan
+        uses: ./.github/workflows/sonar_scan.yml

@@ -1,0 +1,18 @@
+[requires]
+# Core
+spdlog/1.9.2
+glm/0.9.9.5
+
+# Implementation
+opengl/system
+glew/2.2.0
+sdl/2.0.20
+
+# Tests
+gtest/1.10.0
+
+[generators]
+cmake_find_package
+
+[options]
+sdl:shared=True

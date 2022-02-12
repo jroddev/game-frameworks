@@ -1,0 +1,28 @@
+name: 'OS Update'
+description: 'Install required Apt Packages'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Cache Installed Packages
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-usr-bin
+      with:
+        path:
+          - /usr/bin/g++
+          - /usr/bin/conan
+        key: ${{ runner.os }}-${{ env.cache-name }}-1.0
+    - name: Install GCC 11
+      run: |
+        GCC_VERSION=$(g++ -dumpversion)
+        echo "gcc version: [$GCC_VERSION]"
+        if [[ "$GCC_VERSION" != "11."* ]]; then
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt update && sudo apt install gcc-11 g++-11
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
+        fi
+    - name: Install OpenGL and GlEW
+      run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev libglew-dev
+    - name: Install Conan C++ Package Manager
+      run: sudo apt-get install -y conan
