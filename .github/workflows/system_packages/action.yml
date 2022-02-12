@@ -4,15 +4,6 @@ description: 'Install required Apt Packages'
 runs:
   using: "composite"
   steps:
-#  - name: Cache Installed Packages
-#    uses: actions/cache@v2
-#    env:
-#      cache-name: cache-usr-bin
-#    with:
-#      path: |
-#        /usr/bin/g++
-#      key: ${{ runner.os }}-${{ env.cache-name }}-1.0
-
   - name: Install GCC 11
     shell: bash
     run: |
