@@ -9,9 +9,9 @@ runs:
     env:
       cache-name: cache-usr-bin
     with:
-      path:
-        - /usr/bin/g++
-        - /usr/bin/conan
+      path: |
+        /usr/bin/g++
+        /usr/bin/conan
       key: ${{ runner.os }}-${{ env.cache-name }}-1.0
 
   - name: Install GCC 11
