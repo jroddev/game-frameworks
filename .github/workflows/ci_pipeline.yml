@@ -65,4 +65,5 @@ jobs:
       - name: Run Sonar Scan
         uses: ./.github/workflows/sonar_scan
         with:
+          build_dir: ${{ env.BUILD_DIR }}
           sonar_token: ${{ secrets.SONAR_TOKEN }}
