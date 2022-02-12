@@ -11,7 +11,7 @@ runs:
     with:
       path: |
         /usr/bin/g++
-        /usr/bin/conan
+        /usr/local/bin/conan
       key: ${{ runner.os }}-${{ env.cache-name }}-1.0
 
   - name: Install GCC 11
@@ -30,4 +30,4 @@ runs:
     run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev libglew-dev
   - name: Install Conan C++ Package Manager
     shell: bash
-    run: sudo apt-get install -y conan
+    run: sudo pip3 install conan
