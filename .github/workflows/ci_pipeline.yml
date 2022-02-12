@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Required OS Packages
-        uses: ./.github/workflows/apt
+        uses: ./.github/workflows/system_packages
       - name: Install Conan and Dependencies
         uses: ./.github/workflows/conan
         with:
@@ -33,7 +33,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Restore OS caches
-        uses: ./.github/workflows/apt
+        uses: ./.github/workflows/system_packages
       - name: Restore Conan caches
         with:
           build_dir: ${{ env.BUILD_DIR }}
@@ -52,11 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Restore OS caches
-        uses: ./.github/workflows/apt
+        uses: ./.github/workflows/system_packages
       - name: Restore Conan caches
         uses: ./.github/workflows/conan
         with:
           build_dir: ${{ env.BUILD_DIR }}
           build_type: ${{ env.BUILD_TYPE }}
       - name: Run Sonar Scan
-        uses: ./.github/workflows/sonar
+        uses: ./.github/workflows/sonar_scan

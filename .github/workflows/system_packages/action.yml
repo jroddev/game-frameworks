@@ -27,7 +27,8 @@ runs:
 
   - name: Install OpenGL and GlEW
     shell: bash
-    run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev libglew-dev
+    run: sudo apt-get install -y libegl-dev
+    # libglu1-mesa-dev mesa-common-dev libglew-dev
   - name: Install Conan C++ Package Manager
     shell: bash
     run: sudo pip3 install conan
