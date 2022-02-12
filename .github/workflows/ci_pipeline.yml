@@ -51,6 +51,10 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Restore OS caches
         uses: ./.github/workflows/system_packages
       - name: Restore Conan caches

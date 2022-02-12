@@ -18,8 +18,17 @@ runs:
       env:
         cache-name: cache-conan-deps
       with:
-        path: ~/.conan
+        path: |
+          ~/.conan
+          /usr/local/bin/conan
         key: ${{ runner.os }}-${{ env.cache-name }}-1.0
+    - name: Install Conan C++ Package Manager
+      shell: bash
+      run: |
+        echo "=============================="
+        echo "=============================="
+        echo "Installing Conan Executable"
+        sudo pip3 install conan
     - name: Configure CMake (trigger Conan Install)
       shell: bash
       run: cmake -B ${{ inputs.build_dir }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
