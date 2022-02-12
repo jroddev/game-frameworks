@@ -20,7 +20,7 @@ inputs:
     description: "url of target sonar instance"
     required: false
     default: "https://sonarcloud.io"
-  sonar_scanner:version:
+  sonar_scanner_version:
     description: "sonar scanner version"
     required: false
     default: "4.4.0.2170"
