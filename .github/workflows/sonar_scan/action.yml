@@ -9,11 +9,13 @@ inputs:
     description: "cmake build type"
     required: false
     default: 'Release'
+  build_wrapper_output_directory:
+    decription: "Directory where build-wrapper output will be placed"
+    required: false
+    default: "build_wrapper_output_directory"
 
 runs:
   using: "composite"
-  env:
-    BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
   steps:
     - name: Download Sonar Scanner
       env:
@@ -37,7 +39,7 @@ runs:
       shell: bash
       run: |
         cmake -B ${{ inputs.build_dir }} -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
-        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
+        build-wrapper-linux-x86-64 --out-dir ${{ inputs.build_wrapper_output_directory }} \
           cmake --build ${{ inputs.build_dir }} --config ${{ inputs.build_type }}
     - name: Run Sonar Scanner
       env:
@@ -46,4 +48,4 @@ runs:
       shell: bash
       run: |
           sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" \
-            --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+            --define sonar.cfamily.build-wrapper-output="${{ inputs.build_wrapper_output_directory }}"

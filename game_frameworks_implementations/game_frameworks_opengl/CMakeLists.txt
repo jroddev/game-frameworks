@@ -1,6 +1,7 @@
 project(gf_opengl VERSION 0.1.0)
 
 find_package(opengl_system)
+find_package(GLEW)
 find_package(glm)
 
 add_library(gf_opengl
@@ -20,9 +21,12 @@ target_include_directories(gf_opengl PUBLIC
         ${game_frameworks_SOURCE_DIR}/include
         ${game-frameworks-interfaces_SOURCE_DIR}/include
         ${OPENGL_INCLUDE_DIR}
+        ${GLEW_GLEW_INCLUDE_DIR}
         )
 
-target_link_libraries(gf_opengl game_frameworks opengl::opengl)
+target_link_libraries(gf_opengl game_frameworks
+        opengl::opengl
+        GLEW::GLEW)
 
 #####
 add_subdirectory(example)
