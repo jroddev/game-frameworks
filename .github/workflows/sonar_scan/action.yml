@@ -2,6 +2,9 @@ name: 'Sonar Scan'
 description: 'Run Sonar Scan on CMake C++ Project'
 
 inputs:
+  sonar_token:
+    description: "API Token to talk to SonarCloud"
+    required: true
   build_dir:
     description: "sonar(cmake) build directory"
     required: true
@@ -43,8 +46,7 @@ runs:
           cmake --build ${{ inputs.build_dir }} --config ${{ inputs.build_type }}
     - name: Run Sonar Scanner
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_TOKEN: ${{ inputs.sonar_token }}
       shell: bash
       run: |
           sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" \

@@ -64,3 +64,5 @@ jobs:
           build_type: ${{ env.BUILD_TYPE }}
       - name: Run Sonar Scan
         uses: ./.github/workflows/sonar_scan
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}

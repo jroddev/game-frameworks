@@ -1,6 +1,3 @@
-##########################################
-### TESTS
-##########################################
 add_executable(tic_tac_toe_test main.cpp)
 target_include_directories(tic_tac_toe_test
         PRIVATE
