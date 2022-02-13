@@ -10,13 +10,13 @@ runs:
       sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
       sudo apt update
       apt-cache policy | awk '/http.*amd64/{print$2}' | sort -u
-      apt-cache search g++-11 | grep g++
+      apt-cache search g++ | grep g++
 
   - name: Repo Apt Repos
     shell: bash
     run: |
       apt-cache policy | awk '/http.*amd64/{print$2}' | sort -u
-      apt-cache search g++-11 | grep g++
+      apt-cache search g++ | grep g++
 
   - name: Install Extra Apt Packages
     uses: awalsh128/cache-apt-pkgs-action@v1
