@@ -12,6 +12,10 @@ runs:
       #apt-cache policy | awk '/http.*amd64/{print$2}' | sort -u
       #apt-cache search g++ | grep g++
       
+      echo "######### explicit"
+      echo "searching for g++"
+      apt-cache search g++ | grep g++
+      
       package="g++-11"
       echo "#########"
       echo "searching for $package"
