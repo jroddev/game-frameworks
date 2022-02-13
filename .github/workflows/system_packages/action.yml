@@ -27,7 +27,7 @@ runs:
       # G++ 11 required for some C++20 features
       # g\\++-1 slashes required to escape regex: apt-cache search ^g\+\+-11$
       # libegl-dev libglu1-mesa-dev mesa-common-dev required for OpenGL
-      packages: "g\+\+-11" libegl-dev libglu1-mesa-dev mesa-common-dev
+      packages: g\\+\\+-11 libegl-dev libglu1-mesa-dev mesa-common-dev
       version: 1.0
 
   - name: Apply G++11
