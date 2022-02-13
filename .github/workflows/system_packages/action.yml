@@ -16,7 +16,7 @@ runs:
       # GCC/G++ 11 required for some C++20 features
       # libegl-dev libglu1-mesa-dev mesa-common-dev required for OpenGL
       packages: gcc-11 g++-11 libegl-dev libglu1-mesa-dev mesa-common-dev
-      version: 1.0
+      version: 1.1
 
   - name: Apply G++11
     shell: bash
@@ -26,3 +26,4 @@ runs:
       ls -la /etc/alternatives/c++
       c++ --version
       g++ --version
+      apt list --installed libstdc++\*
