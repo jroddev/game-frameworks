@@ -11,7 +11,7 @@ runs:
       sudo apt update
 
   - name: Install Extra Apt Packages
-    uses: jroddev/cache-apt-pkgs-action
+    uses: jroddev/cache-apt-pkgs-action@v1
     with:
       # G++ 11 required for some C++20 features
       # libegl-dev libglu1-mesa-dev mesa-common-dev required for OpenGL
