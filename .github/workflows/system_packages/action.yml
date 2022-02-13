@@ -15,7 +15,7 @@ runs:
       package="g++-11"
       echo "#########"
       echo "searching for $package"
-      apt-cache search $package | grep $package
+      apt-cache search $package
 
   - name: Install Extra Apt Packages
     uses: awalsh128/cache-apt-pkgs-action@v1
