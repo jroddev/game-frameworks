@@ -15,10 +15,12 @@ runs:
     with:
       # GCC/G++ 11 required for some C++20 features
       # libegl-dev libglu1-mesa-dev mesa-common-dev required for OpenGL
-      packages: build-essential gcc-11 g++-11 libegl-dev libglu1-mesa-dev mesa-common-dev
+      packages: gcc-11 g++-11 libegl-dev libglu1-mesa-dev mesa-common-dev
       version: 1.0
 
   - name: Apply G++11
     shell: bash
     run: |
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
+      ls -la/usr/bin/c++
+      g++ --version
