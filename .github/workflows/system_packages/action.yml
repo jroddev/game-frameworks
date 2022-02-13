@@ -23,4 +23,6 @@ runs:
     run: |
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
       ls -la /usr/bin/c++
+      ls -la /etc/alternatives/c++
+      c++ --version
       g++ --version
