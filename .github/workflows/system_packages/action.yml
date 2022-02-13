@@ -22,5 +22,5 @@ runs:
     shell: bash
     run: |
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
-      ls -la/usr/bin/c++
+      ls -la /usr/bin/c++
       g++ --version
