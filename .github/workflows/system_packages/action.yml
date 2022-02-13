@@ -16,7 +16,7 @@ runs:
       echo "searching for g++"
       apt-cache search g++ | grep g++
       
-      package="g++-11"
+      package="g\++-11"
       echo "#########"
       echo "searching for $package"
       apt-cache search $package
