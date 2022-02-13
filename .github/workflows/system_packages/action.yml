@@ -17,6 +17,9 @@ runs:
     run: |
       apt-cache policy | awk '/http.*amd64/{print$2}' | sort -u
       apt-cache search g++ | grep g++
+      echo "#########"
+      package="g++-11"
+      apt-cache search ^$package$ | grep $package
 
   - name: Install Extra Apt Packages
     uses: awalsh128/cache-apt-pkgs-action@v1
