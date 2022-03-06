@@ -3,6 +3,7 @@
 
 #include <concepts>
 #include <game_frameworks/maths/Geometry.h>
+#include <game_frameworks/utils/entity_identifier.h>
 
 namespace game_frameworks {
 
@@ -10,8 +11,10 @@ namespace game_frameworks {
     concept SpriteConcept = requires(S sprite) {
         { sprite.pivotPointOffset} -> Vector2;
         { sprite.size } -> Vector2;
-        { sprite.textureTint } -> Vector4;
-        { sprite.textureCoords } -> Rect;
+        { sprite.textureId } -> std::same_as<EntityIdentifier&>;
+        { sprite.textureColorTint } -> Vector4;
+        { sprite.textureRegionOffset } -> Vector2;
+        { sprite.textureRegionSize } -> Vector2;
     };
 
 }

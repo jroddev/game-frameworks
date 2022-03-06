@@ -2,10 +2,12 @@
 # Core
 spdlog/1.9.2
 glm/0.9.9.5
+fmt/8.1.1
 
 # Implementation
 opengl/system
 glew/2.2.0
+stb/20200203
 
 # Tests
 gtest/1.10.0

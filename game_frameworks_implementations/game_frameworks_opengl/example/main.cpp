@@ -75,6 +75,14 @@ void run(
         }, t, 2.0F);
 
 //        // draw sprite/s
+        renderer.draw(Sprite{
+                .pivotPointOffset=quad_pivot_offset::CENTER,
+                .size={50.F, 50.F},
+                .textureId{EntityIdentifier("invalid texture")},
+                .textureColorTint{0.F, 0.F, 1.F, 1.F},
+                .textureRegionOffset{0.F, 0.F},
+                .textureRegionSize{1.F, 1.F}
+        }, t);
 
 //        // draw text
 

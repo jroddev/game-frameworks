@@ -10,6 +10,8 @@
 #include "gf_opengl/maths/transform.h"
 #include "gf_opengl/mesh/mesh_quad.h"
 #include "gf_opengl/mesh/mesh_uploader.h"
+#include "gf_opengl/texture.h"
+#include "game_frameworks/utils/entity_identifier.h"
 
 #include <glm/glm.hpp>
 
@@ -22,10 +24,13 @@ namespace game_frameworks {
     };
 
     struct Sprite {
-        glm::mat4 localTransform;
         glm::vec2 pivotPointOffset;
         glm::vec2 size;
-        glm::vec4 textureCoords;
+
+        EntityIdentifier textureId;
+        glm::vec4 textureColorTint;
+        glm::vec2 textureRegionOffset;
+        glm::vec2 textureRegionSize;
     };
 
     struct Quad {
@@ -47,18 +52,22 @@ namespace game_frameworks {
     public:
         using LineType = Line;
         using QuadType = Quad;
+        using SpriteType = Sprite;
         using TransformType = Transform;
 
         OpenGL_RenderApi();
         void setCamera(const Camera2D &camera, const ViewportProperties &viewport);
         void draw(const LineType &line, float lineWidth);
         void draw(const QuadType &quad, const TransformType &worldTransform) const;
+        void draw(const SpriteType &sprite, const TransformType &worldTransform) const;
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
+        void drawWireframe(const SpriteType &quad, const TransformType &worldTransform, float borderWidth) const;
 
     private:
         glm::mat4 cameraViewMatrix;
         glm::mat4 cameraProjectionMatrix;
         OpenGLMeshProperties quad_mesh = uploadQuadMesh();
+        Texture::TextureMap textures;
     };
 
     static_assert(Vector2<glm::vec2>);
@@ -67,6 +76,7 @@ namespace game_frameworks {
     static_assert(Matrix4x4<glm::mat4>);
     static_assert(LineConcept<Line>);
     static_assert(QuadConcept<Quad>);
+    static_assert(SpriteConcept<Sprite>);
 
     static_assert(LineConcept<Line>);
     static_assert(RenderingApi<OpenGL_RenderApi>);
