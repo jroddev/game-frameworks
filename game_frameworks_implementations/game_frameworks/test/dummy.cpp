@@ -1,4 +1,3 @@
-#include "gtest/gtest.h"
 #include "dummy/dummy.h"
 #include "game_frameworks/utils/entity_identifier.h"
 
