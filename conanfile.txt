@@ -10,7 +10,7 @@ glew/2.2.0
 stb/20200203
 
 # Tests
-gtest/1.10.0
+gtest/1.11.0
 
 [generators]
 cmake_find_package
