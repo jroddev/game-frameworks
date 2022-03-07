@@ -14,6 +14,11 @@ namespace game_frameworks {
         std::is_floating_point_v <std::remove_reference<F>>;
     };
 
+    template<typename F>
+    concept IntegralRef = requires {
+        std::is_integral_v <std::remove_reference<F>>;
+    };
+
 }
 
 #endif //GAME_FRAMEWORKS_COMMON_H

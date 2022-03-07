@@ -10,7 +10,7 @@ namespace game_frameworks::shader_utils {
         FRAG
     };
 
-struct shader_build_exception : public std::runtime_error {
+    struct shader_build_exception : public std::runtime_error {
         using runtime_error::runtime_error;
     };
 

@@ -25,7 +25,8 @@ namespace game_frameworks {
                 typename Renderer::TransformType transform,
                 typename Renderer::LineType line,
                 typename Renderer::QuadType quad,
-                float lineWidth
+                float lineWidth,
+                std::string_view str
             ) {
         { camera } -> Camera2DConcept;
         { stripConst(viewport)} -> ViewportPropertiesConcept;
@@ -33,6 +34,9 @@ namespace game_frameworks {
         { renderer.draw(line, lineWidth) } -> std::same_as<void>;
         { renderer.draw(quad, transform) } -> std::same_as<void>;
         { renderer.drawWireframe(quad, transform, lineWidth) } -> std::same_as<void>;
+        { renderer.loadTexture(str) } -> std::same_as<void>;
+        { renderer.unloadTexture(str) } -> std::same_as<void>;
+        { renderer.unloadAllTextures() } -> std::same_as<void>;
     };
 
 }

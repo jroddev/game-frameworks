@@ -4,6 +4,7 @@
 #include <concepts>
 #include <functional>
 #include <string_view>
+#include "game_frameworks/utils/EntityIdentifier.h"
 
 namespace game_frameworks {
 
@@ -33,14 +34,7 @@ namespace game_frameworks {
         };
     };
 
-    static_assert(std::is_invocable_v<
-                    const EntityIdentifier::Compare,
-                    const EntityIdentifier &,
-                    const EntityIdentifier &>);
-
-    static_assert(std::is_invocable_v<
-                    const EntityIdentifier::Hasher,
-                    const EntityIdentifier>);
+    static_assert(game_frameworks::EntityIdentifierConcept<EntityIdentifier>);
 }
 
 #endif //GAME_FRAMEWORKS_ENTITYIDENTIFIER_H

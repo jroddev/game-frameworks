@@ -24,8 +24,9 @@ namespace game_frameworks {
         glBindTexture(GL_TEXTURE_2D, textureId);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        hasOpenglResource = true;
 
         const auto data = stbi_load(
                 textureFileName.data(),
@@ -36,12 +37,40 @@ namespace game_frameworks {
 
         if (data) {
             spdlog::info("Load Texture: {} [{}, {}] has {} channels", textureFileName, width, height, colorChannels);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            switch(colorChannels) {
+                case 4: glTexImage2D(
+                        GL_TEXTURE_2D,
+                        0,
+                        GL_RGBA,
+                        width,
+                        height,
+                        0,
+                        GL_RGBA,
+                        GL_UNSIGNED_BYTE,
+                        data);
+                break;
+                case 3: glTexImage2D(
+                        GL_TEXTURE_2D,
+                        0,
+                        GL_RGB,
+                        width,
+                        height,
+                        0,
+                        GL_RGB,
+                        GL_UNSIGNED_BYTE,
+                        data);
+                break;
+                default: throw texture_load_exception(
+                        fmt::format("Load Texture: Unsupported number of colorChannels ({}) for texture file {}",
+                                    colorChannels,
+                                    textureFileName)
+                        );
+            }
             glGenerateMipmap(GL_TEXTURE_2D);
             stbi_image_free(data);
         } else {
             stbi_image_free(data);
-            throw std::runtime_error(fmt::format("Failed to load texture: {}", textureFileName));
+            throw texture_load_exception(fmt::format("Failed to load texture: {}", textureFileName));
         }
 
     }
@@ -56,6 +85,23 @@ namespace game_frameworks {
             colorChannels(colorChannels),
             textureId(openGlTexture) {
 
+    }
+
+    Texture::Texture(Texture&& other) noexcept:
+        width(other.width),
+        height(other.height),
+        colorChannels(other.colorChannels),
+        textureId(other.textureId),
+        hasOpenglResource(other.hasOpenglResource){
+        other.hasOpenglResource = false;
+    }
+
+    Texture::~Texture() {
+        spdlog::info("~Texture");
+        if (hasOpenglResource) {
+            spdlog::info("~Texture releasing texture {}", textureId);
+            glDeleteTextures(1, &textureId);
+        }
     }
 
 }

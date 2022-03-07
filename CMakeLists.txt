@@ -23,6 +23,9 @@ if(RUN_TESTS)
     find_package(GTest)
 endif()
 
+SET(ASSET_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/assets)
+configure_file(${ASSET_DIRECTORY}/textures/input_prompts.png bin/assets/textures/input_prompts.png COPYONLY)
+
 add_subdirectory(game_frameworks_interfaces)
 add_subdirectory(game_frameworks_implementations/game_frameworks)
 add_subdirectory(game_frameworks_implementations/game_frameworks_sdl2)

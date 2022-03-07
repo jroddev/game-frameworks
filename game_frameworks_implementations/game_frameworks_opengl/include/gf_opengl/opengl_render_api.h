@@ -63,6 +63,10 @@ namespace game_frameworks {
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
         void drawWireframe(const SpriteType &quad, const TransformType &worldTransform, float borderWidth) const;
 
+        void loadTexture(const std::string_view texturePath);
+        void unloadTexture(const std::string_view texturePath);
+        void unloadAllTextures();
+
     private:
         glm::mat4 cameraViewMatrix;
         glm::mat4 cameraProjectionMatrix;
