@@ -1,4 +1,3 @@
-#include "gtest/gtest.h"
 #include "dummy/dummy.h"
 #include <gf_opengl/texture.h>
 #include <glm/glm.hpp>
