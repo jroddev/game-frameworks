@@ -9,6 +9,8 @@ set(BUILD_FLAGS "${BUILD_FLAGS} -Werror") # Warnings as Errors
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g") # https://www.jetbrains.com/help/clion/google-sanitizers.html#makefiles-compdb
 
 include(cmake/conan.cmake)
+
+set(CPP_DUMMY_TESTS OFF CACHE INTERNAL "")
 FetchContent_Declare(
         # Not Yet in Conan
         cpp_dummy
