@@ -2,9 +2,9 @@
 #define GAME_FRAMEWORKS_OPENGL_RENDER_API_H
 
 
-#include "game_frameworks/graphics/RenderingApi.h"
-#include "game_frameworks/graphics/Camera.h"
-#include "game_frameworks/maths/Geometry.h"
+#include "game_frameworks/interfaces/graphics/RenderingApi.h"
+#include "game_frameworks/interfaces/graphics/Camera.h"
+#include "game_frameworks/interfaces/maths/Geometry.h"
 #include "camera.h"
 #include "gf_opengl/mesh/mesh_properties.h"
 #include "gf_opengl/maths/transform.h"
@@ -57,14 +57,14 @@ namespace game_frameworks {
 
         OpenGL_RenderApi();
         void setCamera(const Camera2D &camera, const ViewportProperties &viewport);
-        void draw(const LineType &line, float lineWidth);
+        void draw(const LineType &line, float lineWidth) const;
         void draw(const QuadType &quad, const TransformType &worldTransform) const;
         void draw(const SpriteType &sprite, const TransformType &worldTransform) const;
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
         void drawWireframe(const SpriteType &quad, const TransformType &worldTransform, float borderWidth) const;
 
-        void loadTexture(const std::string_view texturePath);
-        void unloadTexture(const std::string_view texturePath);
+        void loadTexture(std::string_view texturePath);
+        void unloadTexture(std::string_view texturePath);
         void unloadAllTextures();
 
     private:

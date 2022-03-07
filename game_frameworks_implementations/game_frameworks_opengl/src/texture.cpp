@@ -104,6 +104,10 @@ namespace game_frameworks {
         }
     }
 
+    Texture Texture::operator=(Texture &&other) noexcept {
+        return Texture(std::move(other));
+    }
+
 }
 
 

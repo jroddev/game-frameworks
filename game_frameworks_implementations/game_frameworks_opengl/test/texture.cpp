@@ -8,10 +8,10 @@ using game_frameworks::tryLoadTexture;
 
 TEST(GF_OpenGL, tryLoadTextureSuccessReturnsTexture) {
     const auto textureKey = dummy<game_frameworks::EntityIdentifier>();
-    const auto texture = dummy<Texture>();
     auto textures = Texture::TextureMap{};
-    textures.try_emplace(textureKey, texture);
-    const auto result = tryLoadTexture(textureKey, textures);
+    auto texture = dummy<Texture>();
+    textures.emplace(textureKey, std::move( texture));
+    const auto& result = tryLoadTexture(textureKey, textures);
     EXPECT_EQ(result.textureId, texture.textureId);
 }
 

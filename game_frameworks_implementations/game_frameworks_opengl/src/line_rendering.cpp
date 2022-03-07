@@ -46,7 +46,7 @@ namespace game_frameworks {
 
     }
 
-    void OpenGL_RenderApi::draw(const Line &line, float lineWidth) {
+    void OpenGL_RenderApi::draw(const Line &line, float lineWidth) const {
         static const auto shader = game_frameworks::Shader{"line-shader", std::string{vertexShader},
                                                            std::string{fragmentShader}};
         static const auto shaderId = static_cast<uint32_t>(shader);

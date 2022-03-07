@@ -19,9 +19,9 @@ namespace game_frameworks {
         explicit Texture(std::string_view textureFileName);
         Texture(OpenGLTexture openGlTexture, glm::ivec2 size, int colorChannels);
         Texture(Texture&& other) noexcept;
+        Texture operator=(Texture&& other) noexcept;
         Texture(const Texture& other) = delete;
         Texture operator=(const Texture& other) = delete;
-        Texture operator=(Texture&& other) = delete;
         ~Texture();
 
         int width;

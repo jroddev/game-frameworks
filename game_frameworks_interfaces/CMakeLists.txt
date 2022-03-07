@@ -7,7 +7,7 @@ project(game-frameworks-interfaces
         DESCRIPTION "Small header-only extensible 2D rendering interface."
         HOMEPAGE_URL "https://github.com/jroddev/game-frameworks")
 
-add_library(${PROJECT_NAME} INTERFACE include/game_frameworks/utils/EntityIdentifier.h)
+add_library(${PROJECT_NAME} INTERFACE)
 set(BUILD_FLAGS "${BUILD_FLAGS} -Wall -Wextra -pedantic")
 # Warnings as Errors
 set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")

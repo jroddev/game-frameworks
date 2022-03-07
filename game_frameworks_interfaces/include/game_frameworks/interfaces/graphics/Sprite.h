@@ -2,8 +2,8 @@
 #define GAME_FRAMEWORKS_SPRITE_H
 
 #include <concepts>
-#include <game_frameworks/maths/Geometry.h>
-#include <game_frameworks/utils/EntityIdentifier.h>
+#include <game_frameworks/interfaces/maths/Geometry.h>
+#include <game_frameworks/interfaces/utils/EntityIdentifier.h>
 
 namespace game_frameworks {
 

@@ -2,6 +2,7 @@ add_library(game_frameworks_dummy dummy.cpp)
 target_include_directories(game_frameworks_dummy
         PRIVATE
         ${game_frameworks_INCLUDE_DIRS}
+        ${game-frameworks-interfaces_SOURCE_DIR}/include
         ${cpp_dummy_SOURCE_DIR}/include)
 
 add_executable(game_frameworks_test main.cpp utils/entity_identifier.cpp utils/filename_cache.cpp)

@@ -1,8 +1,8 @@
 #ifndef GAME_FRAMEWORKS__CAMERATYPES_H
 #define GAME_FRAMEWORKS__CAMERATYPES_H
 
-#include <game_frameworks/Common.h>
-#include <game_frameworks/maths/Geometry.h>
+#include <game_frameworks/interfaces/Common.h>
+#include <game_frameworks/interfaces/maths/Geometry.h>
 
 namespace game_frameworks {
 

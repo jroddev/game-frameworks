@@ -1,13 +1,13 @@
 #ifndef GAME_FRAMEWORKS_RENDERINGAPI_H
 #define GAME_FRAMEWORKS_RENDERINGAPI_H
 
-#include <game_frameworks/maths/Geometry.h>
-#include <game_frameworks/graphics/Line.h>
-#include <game_frameworks/graphics/Sprite.h>
-#include <game_frameworks/graphics/Quad.h>
-#include <game_frameworks/graphics/Camera.h>
-#include <game_frameworks/utils/FunctionTraits.h>
-
+#include <game_frameworks/interfaces/maths/Geometry.h>
+#include <game_frameworks/interfaces/graphics/Line.h>
+#include <game_frameworks/interfaces/graphics/Sprite.h>
+#include <game_frameworks/interfaces/graphics/Quad.h>
+#include <game_frameworks/interfaces/graphics/Camera.h>
+#include <game_frameworks/interfaces/utils/FunctionTraits.h>
+#include <string_view>
 
 
 namespace game_frameworks {

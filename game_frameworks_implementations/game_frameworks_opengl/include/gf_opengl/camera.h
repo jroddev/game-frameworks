@@ -1,7 +1,7 @@
 #ifndef GAME_FRAMEWORKS_CAMERA_H
 #define GAME_FRAMEWORKS_CAMERA_H
 
-#include <game_frameworks/graphics/Camera.h>
+#include <game_frameworks/interfaces/graphics/Camera.h>
 #include <glm/glm.hpp>
 
 namespace game_frameworks {

@@ -4,7 +4,7 @@
 #include <concepts>
 #include <functional>
 #include <string_view>
-#include "game_frameworks/utils/EntityIdentifier.h"
+#include "game_frameworks/interfaces/utils/EntityIdentifier.h"
 
 namespace game_frameworks {
 
