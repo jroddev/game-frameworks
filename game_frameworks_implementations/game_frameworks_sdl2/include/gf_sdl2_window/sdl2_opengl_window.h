@@ -6,7 +6,7 @@
 #include <string>
 #include <stdexcept>
 #include <SDL_opengl.h>
-#include <game_frameworks/RenderingSurfaceApi.h>
+#include <game_frameworks/interfaces/RenderingSurfaceApi.h>
 
 class SDL2OpenglWindow {
 public:
