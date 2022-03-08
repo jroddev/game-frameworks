@@ -104,7 +104,13 @@ namespace game_frameworks {
     }
 
     Texture& Texture::operator=(Texture &&other) noexcept {
-        return std::move(other);
+        width = other.width;
+        height = other.height;
+        colorChannels = other.colorChannels;
+        textureId = other.textureId;
+        hasOpenglResource = other.hasOpenglResource;
+        other.hasOpenglResource = false;
+        return *this;
     }
 
 }
