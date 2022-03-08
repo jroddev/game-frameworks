@@ -24,7 +24,6 @@ void run(
     renderer.setCamera(pixelPerfectCamera, viewport);
     glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 
-    renderer.loadTexture("assets/textures/checkerboard.png");
     renderer.loadTexture("assets/textures/input_prompts.png");
     const auto inputPromptTexelSize = glm::vec2 {16.F/544.F, 16.F/384.F};
 
