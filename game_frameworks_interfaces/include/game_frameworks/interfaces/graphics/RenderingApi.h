@@ -1,13 +1,13 @@
 #ifndef GAME_FRAMEWORKS_RENDERINGAPI_H
 #define GAME_FRAMEWORKS_RENDERINGAPI_H
 
-#include <game_frameworks/maths/Geometry.h>
-#include <game_frameworks/graphics/Line.h>
-#include <game_frameworks/graphics/Sprite.h>
-#include <game_frameworks/graphics/Quad.h>
-#include <game_frameworks/graphics/Camera.h>
-#include <game_frameworks/utils/FunctionTraits.h>
-
+#include <game_frameworks/interfaces/maths/Geometry.h>
+#include <game_frameworks/interfaces/graphics/Line.h>
+#include <game_frameworks/interfaces/graphics/Sprite.h>
+#include <game_frameworks/interfaces/graphics/Quad.h>
+#include <game_frameworks/interfaces/graphics/Camera.h>
+#include <game_frameworks/interfaces/utils/FunctionTraits.h>
+#include <string_view>
 
 
 namespace game_frameworks {
@@ -25,7 +25,8 @@ namespace game_frameworks {
                 typename Renderer::TransformType transform,
                 typename Renderer::LineType line,
                 typename Renderer::QuadType quad,
-                float lineWidth
+                float lineWidth,
+                std::string_view str
             ) {
         { camera } -> Camera2DConcept;
         { stripConst(viewport)} -> ViewportPropertiesConcept;
@@ -33,6 +34,9 @@ namespace game_frameworks {
         { renderer.draw(line, lineWidth) } -> std::same_as<void>;
         { renderer.draw(quad, transform) } -> std::same_as<void>;
         { renderer.drawWireframe(quad, transform, lineWidth) } -> std::same_as<void>;
+        { renderer.loadTexture(str) } -> std::same_as<void>;
+        { renderer.unloadTexture(str) } -> std::same_as<void>;
+        { renderer.unloadAllTextures() } -> std::same_as<void>;
     };
 
 }

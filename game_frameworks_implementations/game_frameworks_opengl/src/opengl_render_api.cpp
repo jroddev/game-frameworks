@@ -1,5 +1,4 @@
 #include "gf_opengl/opengl_render_api.h"
-#include "gf_opengl/mesh/mesh_uploader.h"
 #include "gf_opengl/mesh/mesh_quad.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
@@ -30,6 +29,26 @@ namespace game_frameworks {
     OpenGL_RenderApi::OpenGL_RenderApi() :
             cameraViewMatrix(),
             cameraProjectionMatrix(){
+
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_ALWAYS);
+    }
+
+    void OpenGL_RenderApi::loadTexture(const std::string_view texturePath) {
+        const auto textureId = EntityIdentifier{texturePath};
+        textures.try_emplace(textureId, Texture{texturePath});
+    }
+
+    void OpenGL_RenderApi::unloadTexture(const std::string_view texturePath) {
+        const auto textureId = EntityIdentifier{texturePath};
+        textures.erase(textureId);
+    }
+
+    void OpenGL_RenderApi::unloadAllTextures() {
+        textures.clear();
     }
 
 }

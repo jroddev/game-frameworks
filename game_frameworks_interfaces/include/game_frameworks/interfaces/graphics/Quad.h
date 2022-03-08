@@ -2,7 +2,7 @@
 #define GAME_FRAMEWORKS_QUAD_H
 
 #include <concepts>
-#include <game_frameworks/maths/Geometry.h>
+#include <game_frameworks/interfaces/maths/Geometry.h>
 
 namespace game_frameworks {
 

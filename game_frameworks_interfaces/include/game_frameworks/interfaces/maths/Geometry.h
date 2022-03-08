@@ -2,7 +2,7 @@
 #define GAME_FRAMEWORKS_GEOMETRY_H
 
 #include <concepts>
-#include <game_frameworks/Common.h>
+#include <game_frameworks/interfaces/Common.h>
 
 namespace game_frameworks {
 

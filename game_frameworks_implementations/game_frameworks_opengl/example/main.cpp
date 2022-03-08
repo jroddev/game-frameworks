@@ -1,3 +1,5 @@
+#include <filesystem>
+#include <chrono>
 #include "spdlog/spdlog.h"
 
 #include "gf_sdl2_window/sdl2_opengl_window.h"
@@ -5,6 +7,7 @@
 #include "gf_opengl/mesh/mesh_quad.h"
 
 using namespace game_frameworks;
+using namespace std::chrono;
 
 void run(
         RenderingSurfaceApi auto& window,
@@ -21,6 +24,8 @@ void run(
     renderer.setCamera(pixelPerfectCamera, viewport);
     glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 
+    renderer.loadTexture("assets/textures/input_prompts.png");
+    const auto inputPromptTexelSize = glm::vec2 {16.F/544.F, 16.F/384.F};
 
     while(!window.shouldClose()) {
         window.pollEvents();
@@ -74,7 +79,23 @@ void run(
                 .color={0.F, 0.F, 1.F, 1.F}
         }, t, 2.0F);
 
-//        // draw sprite/s
+        // draw sprite/s
+        // Loop through a set of sprites from atlas and adjust tint
+        const auto time = steady_clock::now().time_since_epoch();
+        const auto frame = duration_cast<seconds>(time).count() % 4;
+        const auto tint = static_cast<float>(frame) / 4.F;
+        const auto spritePosition = glm::vec2{ 1 + frame, 9 };
+        renderer.draw(Sprite{
+                .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
+                .size={16.F, 16.F},
+                .textureId{EntityIdentifier("assets/textures/input_prompts.png")},
+                .textureColorTint{1.F-tint, tint, 1.F, 0.8F},
+                .textureRegionOffset{
+                        (spritePosition.x) * inputPromptTexelSize.x,
+                        (spritePosition.y-1) * inputPromptTexelSize.y
+                },
+                .textureRegionSize{inputPromptTexelSize.x, inputPromptTexelSize.y}
+        }, Transform::from(100.F, 10.F, 0.F, 3.F, 3.F));
 
 //        // draw text
 
@@ -85,6 +106,7 @@ void run(
 
 int main() {
     spdlog::info("Starting");
+    spdlog::info("Running from: {}", std::filesystem::current_path().string());
     try {
         game_frameworks::RenderingSurfaceApi auto window = SDL2OpenglWindow({
                .width = 512,
