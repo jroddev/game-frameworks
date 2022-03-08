@@ -1,3 +1,5 @@
+include(../../../cmake/list_all_variables.cmake)
+
 add_executable(tic_tac_toe_test main.cpp)
 target_include_directories(tic_tac_toe_test
         PRIVATE
