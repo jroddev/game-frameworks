@@ -10,7 +10,7 @@ target_include_directories(game_frameworks_test
         PRIVATE
         ${game_frameworks_INCLUDE_DIRS}
         ${cpp_dummy_SOURCE_DIR}/include
-        ${googletest_SOURCE_DIR}/googletest/include)
+        ${gtest_SOURCE_DIR}/googletest/include)
 target_link_libraries(game_frameworks_test GTest::gtest_main cpp_dummy game_frameworks game_frameworks_dummy)
 add_test(NAME game_frameworks_test
         COMMAND game_frameworks_test)
