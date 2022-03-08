@@ -19,7 +19,7 @@ namespace game_frameworks {
         explicit Texture(std::string_view textureFileName);
         Texture(OpenGLTexture openGlTexture, glm::ivec2 size, int colorChannels);
         Texture(Texture&& other) noexcept;
-        Texture operator=(Texture&& other) noexcept;
+        Texture& operator=(Texture&& other) noexcept;
         Texture(const Texture& other) = delete;
         Texture operator=(const Texture& other) = delete;
         ~Texture();
@@ -28,10 +28,8 @@ namespace game_frameworks {
         int height;
         int colorChannels{};
         OpenGLTexture textureId{}; // opengl resource id
-        void bind() const;
-
-    private:
         bool hasOpenglResource = false;
+        void bind() const;
     };
 
     const Texture& tryLoadTexture(const EntityIdentifier& textureId, const Texture::TextureMap& textures);

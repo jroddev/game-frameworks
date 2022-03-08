@@ -19,7 +19,7 @@ namespace game_frameworks {
         }
     }
 
-    Texture::Texture(const std::string_view textureFileName): width(0), height(0) {
+    Texture::Texture(const std::string_view textureFileName): width(0), height(0), hasOpenglResource(false) {
         glGenTextures(1, &textureId);
         glBindTexture(GL_TEXTURE_2D, textureId);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -36,7 +36,7 @@ namespace game_frameworks {
                 0);
 
         if (data) {
-            spdlog::info("Load Texture: {} [{}, {}] has {} channels", textureFileName, width, height, colorChannels);
+            spdlog::info("Load Texture: ID {} {} [{}, {}] has {} channels", textureId, textureFileName, width, height, colorChannels);
             switch(colorChannels) {
                 case 4: glTexImage2D(
                         GL_TEXTURE_2D,
@@ -97,15 +97,14 @@ namespace game_frameworks {
     }
 
     Texture::~Texture() {
-        spdlog::info("~Texture");
         if (hasOpenglResource) {
-            spdlog::info("~Texture releasing texture {}", textureId);
+            spdlog::info("~Texture releasing texture ID {}", textureId);
             glDeleteTextures(1, &textureId);
         }
     }
 
-    Texture Texture::operator=(Texture &&other) noexcept {
-        return Texture(std::move(other));
+    Texture& Texture::operator=(Texture &&other) noexcept {
+        return std::move(other);
     }
 
 }
