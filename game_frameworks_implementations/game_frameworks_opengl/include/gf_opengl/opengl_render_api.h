@@ -47,6 +47,20 @@ namespace game_frameworks {
                 centered_unit_quad::textureCoordIndexOffset);
     }
 
+    struct PerInstanceData {
+        glm::vec2 pivotPointOffset;
+        glm::vec2 size;
+        glm::vec4 textureRegion;
+        glm::vec4 colorTint;
+        glm::mat4 modelMatrix;
+    };
+
+    struct PerFrameData {
+        glm::mat4 view;
+        glm::mat4 projection;
+    };
+
+
 
     class OpenGL_RenderApi {
     public:
@@ -59,9 +73,14 @@ namespace game_frameworks {
         void setCamera(const Camera2D &camera, const ViewportProperties &viewport);
         void draw(const LineType &line, float lineWidth) const;
         void draw(const QuadType &quad, const TransformType &worldTransform) const;
-        void draw(const SpriteType &sprite, const TransformType &worldTransform) const;
+        void draw(const EntityIdentifier& textureId, const PerInstanceData& instance) const;
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
-        void drawWireframe(const SpriteType &quad, const TransformType &worldTransform, float borderWidth) const;
+        void drawWireframe(const EntityIdentifier& textureId,
+                           const std::vector<PerInstanceData>& instances,
+                           float borderWidth) const;
+        void drawInstanced(
+                const EntityIdentifier& textureId,
+                const std::vector<PerInstanceData>& instances) const;
 
         void loadTexture(std::string_view texturePath);
         void unloadTexture(std::string_view texturePath);

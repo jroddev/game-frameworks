@@ -85,19 +85,61 @@ void run(
         const auto frame = duration_cast<seconds>(time).count() % 4;
         const auto tint = static_cast<float>(frame) / 4.F;
         const auto spritePosition = glm::vec2{ 1 + frame, 9 };
-        renderer.draw(Sprite{
-                .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
-                .size={16.F, 16.F},
-                .textureId{EntityIdentifier("assets/textures/input_prompts.png")},
-                .textureColorTint{1.F-tint, tint, 1.F, 0.8F},
-                .textureRegionOffset{
-                        (spritePosition.x) * inputPromptTexelSize.x,
-                        (spritePosition.y-1) * inputPromptTexelSize.y
-                },
-                .textureRegionSize{inputPromptTexelSize.x, inputPromptTexelSize.y}
-        }, Transform::from(100.F, 10.F, 0.F, 3.F, 3.F));
+//        renderer.draw(Sprite{
+//                .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
+//                .size={16.F, 16.F},
+//                .textureId{EntityIdentifier("assets/textures/input_prompts.png")},
+//                .textureColorTint{1.F-tint, tint, 1.F, 0.8F},
+//                .textureRegionOffset{
+//                        (spritePosition.x) * inputPromptTexelSize.x,
+//                        (spritePosition.y-1) * inputPromptTexelSize.y
+//                },
+//                .textureRegionSize{inputPromptTexelSize.x, inputPromptTexelSize.y}
+//        }, Transform::from(100.F, 10.F, 0.F, 3.F, 3.F));
 
 //        // draw text
+
+         renderer.drawInstanced(
+            EntityIdentifier("assets/textures/input_prompts.png"),{{
+                .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
+                .size={16.F, 16.F},
+                .textureRegion{
+                    (spritePosition.x) * inputPromptTexelSize.x,
+                    (spritePosition.y-1) * inputPromptTexelSize.y,
+                    inputPromptTexelSize.x,
+                    inputPromptTexelSize.y
+                },
+                .colorTint{1.F-tint, tint, 1.F, 0.8F},
+                .modelMatrix{Transform::from(100.F, 10.F, 0.F, 3.F, 3.F).toMatrix()}
+            }, {
+                 .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
+                 .size={16.F, 16.F},
+                 .textureRegion{
+                         (spritePosition.x) * inputPromptTexelSize.x,
+                         (spritePosition.y-1) * inputPromptTexelSize.y,
+                         inputPromptTexelSize.x,
+                         inputPromptTexelSize.y
+                 },
+                 .colorTint{1.F, 0.F, 0.F, 1.F},
+                 .modelMatrix{Transform::from(150.F, 10.F, 0.F, 3.F, 3.F).toMatrix()}
+            }}
+         );
+
+
+        renderer.drawWireframe(
+                EntityIdentifier("assets/textures/input_prompts.png"),{{
+                   .pivotPointOffset=quad_pivot_offset::TOP_LEFT,
+                   .size={16.F, 16.F},
+                   .textureRegion{
+                           (spritePosition.x) * inputPromptTexelSize.x,
+                           (spritePosition.y-1) * inputPromptTexelSize.y,
+                           inputPromptTexelSize.x,
+                           inputPromptTexelSize.y
+                   },
+                   .colorTint{1.F-tint, tint, 1.F, 0.8F},
+                   .modelMatrix{Transform::from(50.F, 10.F, 0.F, 3.F, 3.F).toMatrix()}
+           }}, 2.F
+        );
 
         window.swapBuffers();
     }
