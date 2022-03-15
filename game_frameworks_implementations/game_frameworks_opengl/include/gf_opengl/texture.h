@@ -18,6 +18,7 @@ namespace game_frameworks {
         using TextureMap = std::unordered_map<const EntityIdentifier, Texture, EntityIdentifier::Hasher, EntityIdentifier::Compare>;
         explicit Texture(std::string_view textureFileName);
         Texture(OpenGLTexture openGlTexture, glm::ivec2 size, int colorChannels);
+        explicit Texture(const std::array<char, 4>&& color);
         Texture(Texture&& other) noexcept;
         Texture& operator=(Texture&& other) noexcept;
         Texture(const Texture& other) = delete;
