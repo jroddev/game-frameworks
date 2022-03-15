@@ -114,19 +114,21 @@ namespace game_frameworks {
     }
 
     void OpenGL_RenderApi::drawWireframe(
-            const EntityIdentifier& textureId,
             const std::vector<PerInstanceData>& instances,
             float borderWidth) const {
 
+        glLineWidth(borderWidth);
         const auto perFrameData = PerFrameData{
                 .view{cameraViewMatrix},
                 .projection{cameraProjectionMatrix}
         };
-        const auto instanceCount = static_cast<int>(instances.size());
-        const auto& texture = tryLoadTexture(textureId, textures);
-        prepareInstancedSprite(texture, perFrameData, quad_mesh, instances.data(), instanceCount);
-        glLineWidth(borderWidth);
-        glDrawArrays(GL_LINE_LOOP, 0, instanceCount * 4);
+        const auto& texture = tryLoadTexture(EntityIdentifier{"white"}, textures);
+
+        // TODO: may be able to batch this using glMultiDrawArrays
+        for(const auto& instance: instances) {
+            prepareInstancedSprite(texture, perFrameData, quad_mesh, &instance, 1);
+            glDrawArrays(GL_LINE_LOOP, 0, 4);
+        }
     }
 
     void OpenGL_RenderApi::drawInstanced(

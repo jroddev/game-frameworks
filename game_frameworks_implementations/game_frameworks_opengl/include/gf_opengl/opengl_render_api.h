@@ -75,9 +75,7 @@ namespace game_frameworks {
         void draw(const QuadType &quad, const TransformType &worldTransform) const;
         void draw(const EntityIdentifier& textureId, const PerInstanceData& instance) const;
         void drawWireframe(const QuadType &quad, const TransformType &worldTransform, float borderWidth) const;
-        void drawWireframe(const EntityIdentifier& textureId,
-                           const std::vector<PerInstanceData>& instances,
-                           float borderWidth) const;
+        void drawWireframe(const std::vector<PerInstanceData>& instances, float borderWidth) const;
         void drawInstanced(
                 const EntityIdentifier& textureId,
                 const std::vector<PerInstanceData>& instances) const;

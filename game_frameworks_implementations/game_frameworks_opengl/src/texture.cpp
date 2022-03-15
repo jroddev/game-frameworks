@@ -84,7 +84,15 @@ namespace game_frameworks {
             height(size.y),
             colorChannels(colorChannels),
             textureId(openGlTexture) {
+    }
 
+    Texture::Texture(const std::array<char, 4>&& color) :
+            width(1),
+            height(1),
+            colorChannels(4){
+        glGenTextures(1, &textureId);
+        glBindTexture(GL_TEXTURE_2D, textureId);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, color.data());
     }
 
     Texture::Texture(Texture&& other) noexcept:

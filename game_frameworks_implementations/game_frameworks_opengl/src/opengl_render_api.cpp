@@ -35,6 +35,17 @@ namespace game_frameworks {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_ALWAYS);
+
+        textures.try_emplace(EntityIdentifier{"black"}, Texture{{
+            static_cast<char>(0),
+            static_cast<char>(0),
+            static_cast<char>(0),
+            static_cast<char>(255)}});
+        textures.try_emplace(EntityIdentifier{"white"}, Texture{{
+            static_cast<char>(255),
+            static_cast<char>(255),
+            static_cast<char>(255),
+            static_cast<char>(255)}});
     }
 
     void OpenGL_RenderApi::loadTexture(const std::string_view texturePath) {
