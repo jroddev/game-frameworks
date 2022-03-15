@@ -1,6 +1,7 @@
 #include "gf_opengl/shader/shader_utils.h"
 #include <unordered_map>
 #include <GL/glew.h>
+#include <fmt/format.h>
 
 namespace game_frameworks::shader_utils {
 
@@ -9,6 +10,11 @@ namespace game_frameworks::shader_utils {
     static const auto shaderTypeToGLType = std::unordered_map<const SHADER_TYPE, unsigned int>{ // NOLINT(cert-err58-cpp)
             {SHADER_TYPE::VERT, GL_VERTEX_SHADER},
             {SHADER_TYPE::FRAG, GL_FRAGMENT_SHADER},
+    };
+
+    static const auto shaderTypeToString = std::unordered_map<const SHADER_TYPE, std::string>{ // NOLINT(cert-err58-cpp)
+            {SHADER_TYPE::VERT, "vertex"},
+            {SHADER_TYPE::FRAG, "fragment"},
     };
 
 
@@ -24,7 +30,9 @@ namespace game_frameworks::shader_utils {
         if (!success) {
             char infoLog[512];  //NOSONAR
             glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-            throw shader_build_exception(std::string{"Shader::compile::failed: "} + infoLog);
+            throw shader_build_exception(fmt::format(
+                    "Shader::compile::{}::failed {}", shaderTypeToString.at(shaderType), infoLog)
+                    );
         }
         return shader;
     }
