@@ -8,6 +8,7 @@ fmt/8.1.1
 opengl/system
 glew/2.2.0
 stb/20200203
+freetype/2.11.1
 
 # Tests
 gtest/1.11.0

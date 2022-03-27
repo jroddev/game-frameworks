@@ -5,6 +5,7 @@
 #include "gf_sdl2_window/sdl2_opengl_window.h"
 #include "gf_opengl/opengl_render_api.h"
 #include "gf_opengl/mesh/mesh_quad.h"
+#include "gf_opengl/font/font_loader.h"
 
 using namespace game_frameworks;
 using namespace std::chrono;
@@ -24,8 +25,14 @@ void run(
     renderer.setCamera(pixelPerfectCamera, viewport);
     glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 
+    const auto arialFont = renderer.loadFont("assets/fonts/Arial.ttf");
     renderer.loadTexture("assets/textures/input_prompts.png");
     const auto inputPromptTexelSize = glm::vec2 {16.F/544.F, 16.F/384.F};
+
+    auto renderText = arialFont.generateSprites("Some test text\nNew line.", 150);
+    auto textTransform = Transform::from(100.F, 10.F, 0.F, 3.F, 3.F);
+    // TODO: How to apply a matrix multiple to the whole group?
+
 
     while(!window.shouldClose()) {
         window.pollEvents();
@@ -137,6 +144,8 @@ void run(
                    .modelMatrix{Transform::from(50.F, 150.F, 0.F, 5.F, 5.F).toMatrix()}
            }}, 1.F
         );
+
+        renderer.drawInstanced(arialFont.id, renderText);
 
         window.swapBuffers();
     }

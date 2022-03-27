@@ -6,6 +6,7 @@
 #include <game_frameworks/interfaces/graphics/Sprite.h>
 #include <game_frameworks/interfaces/graphics/Quad.h>
 #include <game_frameworks/interfaces/graphics/Camera.h>
+#include <game_frameworks/interfaces/graphics/Font.h>
 #include <game_frameworks/interfaces/utils/FunctionTraits.h>
 #include <string_view>
 
@@ -37,6 +38,7 @@ namespace game_frameworks {
         { renderer.loadTexture(str) } -> std::same_as<void>;
         { renderer.unloadTexture(str) } -> std::same_as<void>;
         { renderer.unloadAllTextures() } -> std::same_as<void>;
+        { renderer.loadFont(str) } -> FontConceptRef;
     };
 
 }

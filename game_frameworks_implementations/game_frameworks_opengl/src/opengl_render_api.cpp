@@ -3,6 +3,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include "gf_opengl/font/font_loader.h"
+
 namespace game_frameworks {
 
     void OpenGL_RenderApi::setCamera(const Camera2D &camera, const ViewportProperties &viewport) {
@@ -51,6 +53,14 @@ namespace game_frameworks {
     void OpenGL_RenderApi::loadTexture(const std::string_view texturePath) {
         const auto textureId = EntityIdentifier{texturePath};
         textures.try_emplace(textureId, Texture{texturePath});
+    }
+
+    Font& OpenGL_RenderApi::loadFont(const std::string_view fontPath) {
+        auto [font, texture] = font::loadFontFromFile(fontPath);
+        const auto id = font.id;
+        fonts.try_emplace(id, std::move(font));
+        textures.try_emplace(id, std::move(texture));
+        return fonts.at(id);
     }
 
     void OpenGL_RenderApi::unloadTexture(const std::string_view texturePath) {

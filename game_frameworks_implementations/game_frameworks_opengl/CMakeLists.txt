@@ -5,6 +5,7 @@ find_package(GLEW)
 find_package(glm)
 find_package(stb)
 find_package(fmt)
+find_package(Freetype)
 
 SET(gf_opengl_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -13,6 +14,7 @@ add_library(gf_opengl
         include/gf_opengl/camera.h
         include/gf_opengl/shader/shader.h
         include/gf_opengl/shader/shader_utils.h
+        include/gf_opengl/font/font_loader.h
         src/opengl_render_api.cpp
         src/line_rendering.cpp
         src/quad_rendering.cpp
@@ -20,7 +22,8 @@ add_library(gf_opengl
         src/shader/shader_utils.cpp
         src/shader/shader.cpp
         src/texture.cpp
-        )
+        src/font/font_loader.cpp
+        include/gf_opengl/font/font_utils.h include/gf_opengl/font/font.h include/gf_opengl/common.h src/font/font.cpp src/font/font_util.cpp)
 target_include_directories(gf_opengl PUBLIC
         ${gf_opengl_INCLUDE_DIRS}
         ${glm_INCLUDE_DIR}
@@ -30,11 +33,13 @@ target_include_directories(gf_opengl PUBLIC
         ${GLEW_GLEW_INCLUDE_DIRS}
         ${stb_INCLUDE_DIRS}
         ${fmt_INCLUDE_DIRS}
+        ${freetype_INCLUDE_DIRS}
         )
 
 target_link_libraries(gf_opengl game_frameworks
         opengl::opengl
-        GLEW::GLEW)
+        GLEW::GLEW
+        Freetype::Freetype)
 
 #####
 add_subdirectory(example)

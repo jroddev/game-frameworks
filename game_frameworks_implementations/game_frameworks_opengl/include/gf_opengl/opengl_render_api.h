@@ -8,59 +8,14 @@
 #include "camera.h"
 #include "gf_opengl/mesh/mesh_properties.h"
 #include "gf_opengl/maths/transform.h"
-#include "gf_opengl/mesh/mesh_quad.h"
-#include "gf_opengl/mesh/mesh_uploader.h"
 #include "gf_opengl/texture.h"
+#include "gf_opengl/font/font.h"
 #include "game_frameworks/utils/entity_identifier.h"
 
 #include <glm/glm.hpp>
+#include "gf_opengl/common.h"
 
 namespace game_frameworks {
-
-    struct Line {
-        glm::vec2 start;
-        glm::vec2 end;
-        glm::vec4 color;
-    };
-
-    struct Sprite {
-        glm::vec2 pivotPointOffset;
-        glm::vec2 size;
-
-        EntityIdentifier textureId;
-        glm::vec4 textureColorTint;
-        glm::vec2 textureRegionOffset;
-        glm::vec2 textureRegionSize;
-    };
-
-    struct Quad {
-        glm::vec2 pivotPointOffset;
-        glm::vec2 size;
-        glm::vec4 color;
-    };
-
-    inline auto uploadQuadMesh() {
-        return uploadMeshToOpenGL(
-                centered_unit_quad::vertices,
-                centered_unit_quad::indices,
-                centered_unit_quad::stride,
-                centered_unit_quad::textureCoordIndexOffset);
-    }
-
-    struct PerInstanceData {
-        glm::vec2 pivotPointOffset;
-        glm::vec2 size;
-        glm::vec4 textureRegion;
-        glm::vec4 colorTint;
-        glm::mat4 modelMatrix;
-    };
-
-    struct PerFrameData {
-        glm::mat4 view;
-        glm::mat4 projection;
-    };
-
-
 
     class OpenGL_RenderApi {
     public:
@@ -68,6 +23,7 @@ namespace game_frameworks {
         using QuadType = Quad;
         using SpriteType = Sprite;
         using TransformType = Transform;
+//        using FontType = Font;
 
         OpenGL_RenderApi();
         void setCamera(const Camera2D &camera, const ViewportProperties &viewport);
@@ -84,11 +40,16 @@ namespace game_frameworks {
         void unloadTexture(std::string_view texturePath);
         void unloadAllTextures();
 
+        Font& loadFont(std::string_view fontPath);
+//        void unloadFont(std::string_view texturePath);
+//        void unloadAllFonts();
+
     private:
         glm::mat4 cameraViewMatrix;
         glm::mat4 cameraProjectionMatrix;
         OpenGLMeshProperties quad_mesh = uploadQuadMesh();
         Texture::TextureMap textures;
+        Font::FontMap fonts;
     };
 
     static_assert(Vector2<glm::vec2>);
@@ -98,8 +59,9 @@ namespace game_frameworks {
     static_assert(LineConcept<Line>);
     static_assert(QuadConcept<Quad>);
     static_assert(SpriteConcept<Sprite>);
+    static_assert(FontConcept<game_frameworks::Font>);
 
-    static_assert(LineConcept<Line>);
+
     static_assert(RenderingApi<OpenGL_RenderApi>);
 }
 

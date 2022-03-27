@@ -5,7 +5,7 @@ project(game_frameworks VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(BUILD_FLAGS "${BUILD_FLAGS} -Wall -Wextra -pedantic")
-set(BUILD_FLAGS "${BUILD_FLAGS} -Werror") # Warnings as Errors
+set(BUILD_FLAGS "${BUILD_FLAGS} -Werror")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak -g") # https://www.jetbrains.com/help/clion/google-sanitizers.html#makefiles-compdb
 
 include(cmake/conan.cmake)
@@ -27,6 +27,7 @@ endif()
 
 SET(ASSET_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/assets)
 configure_file(${ASSET_DIRECTORY}/textures/input_prompts.png bin/assets/textures/input_prompts.png COPYONLY)
+configure_file(${ASSET_DIRECTORY}/fonts/Arial.ttf bin/assets/fonts/Arial.ttf COPYONLY)
 
 add_subdirectory(game_frameworks_interfaces)
 add_subdirectory(game_frameworks_implementations/game_frameworks)

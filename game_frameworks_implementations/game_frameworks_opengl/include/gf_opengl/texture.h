@@ -13,8 +13,7 @@ namespace game_frameworks {
         using runtime_error::runtime_error;
     };
 
-    class Texture {
-    public:
+    struct Texture {
         using TextureMap = std::unordered_map<const EntityIdentifier, Texture, EntityIdentifier::Hasher, EntityIdentifier::Compare>;
         explicit Texture(std::string_view textureFileName);
         Texture(OpenGLTexture openGlTexture, glm::ivec2 size, int colorChannels);
