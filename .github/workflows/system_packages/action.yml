@@ -23,4 +23,6 @@ runs:
     run: |
       sudo apt install -y g++-11 libstdc++-11-dev libegl-dev libglu1-mesa-dev mesa-common-dev
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/gcc-11 110
+      echo "---------- RUNNING DPKG ----------"
       dpkg -L g++-11
+      echo "---------- COMPELTED DPKG ----------"
